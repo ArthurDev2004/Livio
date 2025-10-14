@@ -1,0 +1,7 @@
+.env #ignore any env file that we have so we don't put important information on github, where it is public
+venv/
+
+__pycache__/ # ignores the bytecode that is generated from the source code, only need the source code in the repo
+*.pyc
+
+.vscode/ #ignores the specific VS code editor files, so it is only source code and other neccesary files
