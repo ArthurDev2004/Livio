@@ -1,0 +1,102 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_styles.css' %}">
+
+<!-- Background -->
+<div class="background">
+  <img src="{% static 'images/bg2.jpg' %}" alt="" aria-hidden="true" />
+</div>
+
+<main class="main-content">
+  <!-- Search -->
+  <section class="search-box">
+    <input type="text" placeholder="Search..." aria-label="Search Livio" />
+    <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </section>
+
+  <!-- Sections -->
+  <section class="boxes-container">
+    <div class="hero-box">
+      <div class="hero-text">
+        <h1>Welcome to Livio!</h1>
+        <p>A student first platform for smarter learning and better living. Discover guidance, housing, and essentials — all in one place.</p>
+      </div>
+      <div class="hero-image">
+        <img src="{% static 'images/hotelimg2.jpg' %}" alt="Hero visual" />
+        <div class="hero-fade"></div>
+      </div>
+    </div>
+
+    <div class="box2">
+      <div class="box2-image">
+        <img src="{% static 'images/bg.jpg' %}" alt="Lifestyle visual" />
+      </div>
+      <div class="box2-text">
+        <p>Join clubs, track progress, and get tailored guidance. Livio connects your learning and living so you can focus on what matters most.</p>
+      </div>
+    </div>
+
+    <div class="box3">
+      <div class="box3text">
+        <h1>"Learn. Live. Connect. With Livio."</h1>
+        <p>From AI mentorship to community discovery, Livio supports your journey — on campus and beyond.</p>
+      </div>
+    </div>
+
+    <div class="box4">
+      <div class="box4-image">
+        <img src="{% static 'images/Picture1.png' %}" alt="Feature illustration" />
+      </div>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <i class="fa-solid fa-lightbulb fa-5x feature-icon"></i>
+          <h3>Guided Learning</h3>
+          <p>Structured prompts and feedback help you retain more.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-house-chimney fa-5x feature-icon"></i>
+          <h3>Find Housing</h3>
+          <p>Discover listings and roommates matched to your needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box5-box">
+      <div class="box5-image">
+        <img src="{% static 'images/hotel.jpg' %}" alt="Explore visual" />
+        <div class="box5-fade"></div>
+      </div>
+      <div class="box5-text">
+        <h1>“Explore your campus life with Livio”</h1>
+        <p>Clubs, events, and resources tailored for you.</p>
+        <a class="rooms-btn" href="#">Explore</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo-format-name"><p>Livio<span class="trademark-icon">&trade;</span></p></div>
+  <div class="logo-format"><p class="vista">Helping students <br>Learn smarter,<br>Live better, and <br>Connect deeper</p></div>
+  <hr />
+  <div class="quick-links">
+    <p>QUICK LINKS</p>
+    <a href="{% url 'home' %}" class="indent">Home</a>
+    <a href="{% url 'signup' %}" class="indent">Sign-Up</a>
+    <a href="{% url 'login' %}" class="indent">Sign-In</a>
+    <a href="#" class="indent">Clubs</a>
+    <a href="#" class="indent">Resources</a>
+  </div>
+  <hr />
+  <div class="contact-info">
+    <p>CONTACT INFO</p>
+    <a href="mailto:hello@livio.app"><i class="fa-solid fa-envelope"></i><p>hello@livio.app</p></a>
+    <a href="tel:818-000-0000"><i class="fa-solid fa-phone"></i><p>Call 818-000-0000</p></a>
+    <a href="#" class="indent">Terms &amp; Conditions</a>
+    <a href="#" class="indent">Privacy Policy</a>
+  </div>
+</footer>
+
+<script src="{% static 'js/home_script.js' %}" defer></script>
+{% endblock %}

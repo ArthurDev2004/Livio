@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/signup_styles.css' %}">
+
+<!-- Background image + gradient overlay -->
+<div class="background">
+  <img src="{% static 'images/BG.png' %}" alt="" aria-hidden="true" />
+</div>
+
+
+  <!-- Main (fixed to the viewport, no scroll) -->
+  <main class="container">
+    <!-- Left/Right order is controlled by CSS; keep markup as you had -->
+    <section class="signup-box" aria-labelledby="signupTitle">
+      <h2 id="signupTitle">Sign Up</h2>
+
+      <!-- ONLY CHANGE: id="signupForm" -->
+      <form id="signupForm" class="form-container" action="#" method="post" novalidate>
+        <label class="sr-only" for="fullName">Full Name</label>
+        <input id="fullName" type="text" class="input-field" placeholder="Full Name" autocomplete="name" required />
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" type="email" class="input-field" placeholder="Email" autocomplete="email" required />
+
+        <div class="password-container">
+          <label class="sr-only" for="password">Password</label>
+          <input id="password" type="password" class="input-field" placeholder="Password" autocomplete="new-password" required />
+          <button type="button" class="toggle-password-btn" aria-label="Show or hide password" data-target="password">
+            <img src="{% static 'images/eye-slash.png' %}" alt="" class="toggle-password-icon" data-target="password" aria-hidden="true" />
+          </button>
+        </div>
+
+        <div class="password-container">
+          <label class="sr-only" for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" type="password" class="input-field" placeholder="Confirm Password" autocomplete="new-password" required />
+          <button type="button" class="toggle-password-btn" aria-label="Show or hide password" data-target="confirmPassword">
+            <img src="{% static 'images/eye-slash.png' %}" alt="" class="toggle-password-icon" data-target="confirmPassword" aria-hidden="true" />
+          </button>
+        </div>
+
+        <button type="submit" class="signup-button">Create Account</button>
+
+        <a href="{% url 'login' %}" class="signin-link">Already have an account? Sign In</a>
+      </form>
+    </section>
+
+    <aside class="image-container" aria-label="Livio Branding">
+      <img src="{% static 'images/text1.png' %}" alt="Livio Student Housing branding" />
+    </aside>
+  </main>
+
+  <!-- Password toggles + prevent reload -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Prevent page reload on submit
+      const signupForm = document.getElementById("signupForm");
+      if (signupForm) {
+        signupForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          // TODO: add AJAX / fetch here when backend is ready
+          console.log("Signup form intercepted (no reload).");
+        });
+      }
+
+      // Show/Hide password toggle (unchanged behavior)
+      const toggles = document.querySelectorAll(".toggle-password-btn, .toggle-password-icon");
+      toggles.forEach(el => {
+        el.addEventListener("click", function () {
+          const targetId = this.getAttribute("data-target") || this.querySelector("img")?.getAttribute("data-target");
+          const field = document.getElementById(targetId);
+          const img = this.classList.contains("toggle-password-btn") ? this.querySelector("img") : this;
+          if (!field) return;
+          if (field.type === "password") {
+            field.type = "text";
+            if (img) img.src = "../static/images/eye.png";
+          } else {
+            field.type = "password";
+            if (img) img.src = "../static/images/eye-slash.png";
+          }
+        });
+      });
+    });
+  </script>
+{%endblock%}

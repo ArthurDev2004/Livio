@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livio-base</Livio-base></title>
+   <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+<!-- Header -->
+<header>
+    <div class="logo" aria-label="Livio">
+    <p>Livio<span class="trademark-icon">&trade;</span></p>
+    </div>
+
+    <nav aria-label="Primary">
+    <a class="chip" href="{% url 'home' %}">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span>Home</span>
+    </a>
+    <a class="chip" href="{% url 'signup' %}">
+        <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+        <span>Sign-Up</span>
+    </a>
+    <a class="chip" href="{% url 'login' %}" aria-current="page">
+        <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+        <span>Sign-In</span>
+    </a>
+    </nav>
+</header>
+{% block content%}
+
+{% endblock%}
+</body>
+</html>

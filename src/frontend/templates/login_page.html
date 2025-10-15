@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login_styles.css' %}">
+
+<div class="background">
+  <img src="{% static 'images/BG.png' %}" alt="" aria-hidden="true" />
+</div>
+
+<main class="container">
+  <!-- Left: Login card -->
+  <section class="login-box" aria-labelledby="loginTitle">
+    <h2 id="loginTitle">LogIn</h2>
+
+    <!-- ONLY CHANGE: id="loginForm" -->
+    <form id="loginForm" class="form-container" action="#" method="post" novalidate>
+      <label class="sr-only" for="loginUsername">Username</label>
+      <input id="loginUsername" type="text" class="input-field" placeholder="Username" autocomplete="username" required />
+
+      <div class="password-container">
+        <label class="sr-only" for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" class="input-field" placeholder="Password" autocomplete="current-password" required />
+        <button type="button" class="toggle-password-btn" aria-label="Show or hide password" data-target="loginPassword">
+          <img src="{% static 'images/eye-slash.png' %}" alt="" class="toggle-password-icon" data-target="loginPassword" aria-hidden="true" />
+        </button>
+      </div>
+
+      <button type="submit" class="login-button">Login</button>
+
+      <a href="#" class="forgot-password">Forgot Password?</a>
+      <a href="{% url 'signup' %}" class="signup-link">Don't have an account? Sign up</a>
+    </form>
+  </section>
+
+    <!-- Right: Image block (same size as login) -->
+  <aside class="image-container" aria-label="Livio Branding">
+    <img src="{% static 'images/text1.png' %}" alt="Livio Student Housing branding" />
+  </aside>
+</main>
+
+<!-- Password toggle + prevent reload -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Prevent page reload on submit
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        // TODO: add AJAX / fetch here when backend is ready
+        console.log("Login form intercepted (no reload).");
+      });
+    }
+
+    // Show/Hide password toggle (unchanged behavior)
+    const toggles = document.querySelectorAll(".toggle-password-btn, .toggle-password-icon");
+    toggles.forEach(el => {
+      el.addEventListener("click", function () {
+        const targetId = this.getAttribute("data-target") || this.querySelector("img")?.getAttribute("data-target");
+        const field = document.getElementById(targetId);
+        const img = this.classList.contains("toggle-password-btn") ? this.querySelector("img") : this;
+        if (!field) return;
+        if (field.type === "password") {
+          field.type = "text";
+          if (img) img.src = "../static/images/eye.png";
+        } else {
+          field.type = "password";
+          if (img) img.src = "../static/images/eye-slash.png";
+        }
+      });
+    });
+  });
+</script>
+{%endblock%}

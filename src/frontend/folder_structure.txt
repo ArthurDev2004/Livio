@@ -1,0 +1,41 @@
+Folder PATH listing for volume Data
+Volume serial number is 34D0-7DB1
+D:.
+�   folder_structure.txt
+�   
++---home
+�       home_page.html
+�       home_script.js
+�       home_styles.css
+�       
++---images
+�       bag.png
+�       bg.jpg
+�       BG.png
+�       bg1.png
+�       bg2.jpg
+�       bgimage.jpg
+�       cocktail.png
+�       eye-slash.png
+�       eye.png
+�       hotel.jpg
+�       hotel.png
+�       hotelimg2.jpg
+�       images.jpeg
+�       key.png
+�       logo.png
+�       logo1.png
+�       logo2.png
+�       Picture1.png
+�       text1.png
+�       
++---login
+�       login_image.jpg
+�       login_page.html
+�       login_styles.css
+�       
++---signup
+        signup_image.jpg
+        signup_page.html
+        signup_styles.css
+        
