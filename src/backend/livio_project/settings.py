@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'roommates',
+    'features',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
