@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.shortcuts import render
 
 def home(request):
@@ -32,4 +32,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
+    path('', include("roommates.urls"))
 ]
+
+# added all of the urls from the roommates app urls.py to the main one, so it is able to go to the proper place
