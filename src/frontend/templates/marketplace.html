@@ -1,0 +1,164 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% block content %}
+  <!-- Assuming marketplace.css is in the same directory -->
+  <link rel="stylesheet" href="{% static 'css/marketplace.css' %}" /> 
+  <!-- Font Awesome for FAB icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <main class="container">
+    <!-- Filter Sidebar -->
+    <aside class="filter-panel">
+      <h3>Filter</h3>
+
+      <label>Category</label>
+      <div class="checkbox-group" id="categoryFilter">
+        <!-- Full Categories List for Filtering -->
+        <label><input type="checkbox" data-filter="Electronics & Media" /> Electronics & Media</label>
+        <label><input type="checkbox" data-filter="Home & Garden" /> Home & Garden</label>
+        <label><input type="checkbox" data-filter="Clothing, Shoes, & Accessories" /> Clothing, Shoes, & Accessories</label>
+        <label><input type="checkbox" data-filter="Baby & Kids" /> Baby & Kids</label>
+        <label><input type="checkbox" data-filter="Vehicles" /> Vehicles</label>
+        <label><input type="checkbox" data-filter="Toys, Games, & Hobbies" /> Toys, Games, & Hobbies</label>
+        <label><input type="checkbox" data-filter="Sports & Outdoors" /> Sports & Outdoors</label>
+        <label><input type="checkbox" data-filter="Collectibles & Art" /> Collectibles & Art</label>
+        <label><input type="checkbox" data-filter="Pet supplies" /> Pet supplies</label>
+        <label><input type="checkbox" data-filter="Health & Beauty" /> Health & Beauty</label>
+        <label><input type="checkbox" data-filter="Business equipment" /> Business equipment</label>
+        <label><input type="checkbox" data-filter="Tickets" /> Tickets</label>
+        <label><input type="checkbox" data-filter="General (other)" /> General (other)</label>
+      </div>
+
+      <label>Condition</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" data-filter="New" /> New</label>
+        <label><input type="checkbox" data-filter="Used - Like New" /> Used - Like New</label>
+        <label><input type="checkbox" data-filter="Used - Good" /> Used - Good</label>
+        <label><input type="checkbox" data-filter="Used - Fair" /> Used - Fair</label>
+      </div>
+
+      <label>Price Range</label>
+      <div class="price-range">
+        <!-- Price inputs with IDs for JS targeting -->
+        <input type="number" id="minPrice" placeholder="min $" />
+        <input type="number" id="maxPrice" placeholder="max $" />
+      </div>
+      <button class="apply-btn">Apply Filters</button>
+    </aside>
+
+    <!-- Marketplace Section -->
+    <section class="market-content">
+      <div class="search-section">
+        <input type="text" class="search-bar" placeholder="Search for items..." />
+        <button class="search-btn">🔍</button>
+      </div>
+
+      <div class="header-row">
+        <h2>Find Your Essentials</h2>
+        <!-- Redundant 'Create New Listing' button has been removed -->
+      </div>
+
+      <div class="item-grid" id="itemGrid">
+        <!-- Item cards will be injected here by marketplace.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Action Button (FAB) for Add Item -->
+  <div class="fab-menu">
+    <button class="fab-btn" id="fabAddItem">
+      <i class="fas fa-plus"></i> Post Listing
+    </button>
+  </div>
+
+  <!-- ADD ITEM MODAL (Form) -->
+  <div class="add-item-modal hidden" id="addItemModal">
+    <div class="modal-content">
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+        <h3>Sell Your Item</h3>
+        <form id="addItemForm">
+            <div class="form-group">
+                <label for="itemTitle">Item Name</label>
+                <input type="text" id="itemTitle" placeholder="e.g., Ergonomic Desk Chair" required />
+            </div>
+            
+            <div class="form-group">
+                <label for="itemCategory">Category</label>
+                <select id="itemCategory" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Electronics & Media">Electronics & Media</option>
+                    <option value="Home & Garden">Home & Garden</option>
+                    <option value="Clothing, Shoes, & Accessories">Clothing, Shoes, & Accessories</option>
+                    <option value="Baby & Kids">Baby & Kids</option>
+                    <option value="Vehicles">Vehicles</option>
+                    <option value="Toys, Games, & Hobbies">Toys, Games, & Hobbies</option>
+                    <option value="Sports & Outdoors">Sports & Outdoors</option>
+                    <option value="Collectibles & Art">Collectibles & Art</option>
+                    <option value="Pet supplies">Pet supplies</option>
+                    <option value="Health & Beauty">Health & Beauty</option>
+                    <option value="Business equipment">Business equipment</option>
+                    <option value="Tickets">Tickets</option>
+                    <option value="General (other)">General (other)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="itemPrice">Price ($)</label>
+                <input type="number" id="itemPrice" placeholder="150.00" required min="0.01" step="0.01" />
+            </div>
+
+            <div class="form-group">
+                <label for="itemCondition">Condition</label>
+                <select id="itemCondition" required>
+                    <option value="" disabled selected>Select Condition</option>
+                    <option value="New">New</option>
+                    <option value="Used - Like New">Used - Like New</option>
+                    <option value="Used - Good">Used - Good</option>
+                    <option value="Used - Fair">Used - Fair</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="itemDescription">Description</label>
+                <textarea id="itemDescription" rows="3" placeholder="Describe the item, its condition, and any flaws." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="itemPicture">Picture (Max 1)</label>
+                <input type="file" id="itemPicture" accept="image/*" />
+            </div>
+
+            <button type="submit" class="submit-btn full-width-btn">Post Listing</button>
+        </form>
+    </div>
+  </div>
+
+  <!-- ITEM DETAIL MODAL -->
+  <div class="add-item-modal hidden" id="itemDetailModal">
+      <div class="modal-content detail-content">
+          <button class="close-btn" id="closeDetailModalBtn">&times;</button>
+          <div class="detail-layout">
+              <div class="detail-image-container">
+                  <img id="detailImg" src="" alt="Item Image" />
+              </div>
+              <div class="detail-info">
+                  <h3 id="detailTitle">Item Name</h3>
+                  <p class="detail-price" id="detailPrice">$0.00</p>
+                  
+                  <div class="detail-tag-group">
+                      <span class="detail-tag" id="detailCategory">Category</span>
+                      <span class="detail-tag" id="detailCondition">Condition</span>
+                  </div>
+
+                  <p class="description-header">Description</p>
+                  <p class="detail-description" id="detailDescription">This is a detailed description of the item...</p>
+
+                  <button class="submit-btn full-width-btn">Make Offer / Purchase</button>
+                  <button class="submit-btn full-width-btn contact-btn">Contact Seller</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script src="{% static 'js/marketplace.js' %}"></script>
+{%endblock%}

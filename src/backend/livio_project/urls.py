@@ -27,11 +27,16 @@ def login_view(request):
 def signup(request):
     return render(request, "signup_page.html")
 
+def marketplace(request):
+    return render(request, "marketplace.html")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
+    path('marketplace/', marketplace, name='marketplace'),  
+    
     path('', include("roommates.urls")),
     path('features/', include('features.urls'))
 ]
