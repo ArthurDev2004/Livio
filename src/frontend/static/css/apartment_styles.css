@@ -1,0 +1,540 @@
+
+
+.page-wrapper {
+    display: flex;
+    height: 100vh;
+    padding-top: clamp(60px, 8vh, 80px);
+    padding-bottom: clamp(60px, 8vh, 80px);
+    overflow: hidden;
+}
+
+/* Fixed Filter Sidebar - Left - Responsive Width */
+.filter {
+    width: 18vw;
+    min-width: 200px;
+    max-width: 280px;
+    background: #ecf0f1;
+    border-right: 1px solid #bdc3c7;
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: clamp(60px, 8vh, 80px);
+    bottom: clamp(60px, 8vh, 80px);
+    z-index: 100;
+    padding: 20px 15px;
+}
+
+.filter::-webkit-scrollbar {
+    display: none;
+}
+
+.filter h3 {
+    margin: 0 0 25px 0;
+    font-size: clamp(1.1em, 1.5vw, 1.4em);
+    color: #2c3e50;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #2980b9;
+}
+
+.filter-section {
+    margin-bottom: 12px;
+}
+
+.filter-header {
+    background: #34495e;
+    color: white;
+    padding: 10px 12px;
+    font-weight: bold;
+    font-size: clamp(0.85em, 1vw, 0.95em);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s;
+    user-select: none;
+}
+
+.filter-header:hover {
+    background: #2c3e50;
+}
+
+.filter-header::after {
+    content: '▼';
+    float: right;
+    font-size: 0.8em;
+    transition: transform 0.3s;
+}
+
+.filter-section.collapsed .filter-header::after {
+    transform: rotate(-90deg);
+}
+
+.filter-content {
+    max-height: 400px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 8px 5px;
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+}
+
+.filter-section.collapsed .filter-content {
+    max-height: 0;
+    padding: 0 5px;
+}
+
+.filter label {
+    display: block;
+    margin: 6px 0;
+    cursor: pointer;
+    font-size: clamp(0.8em, 0.9vw, 0.9em);
+    transition: color 0.3s;
+    padding: 4px;
+}
+
+.filter label:hover {
+    color: #2980b9;
+    background: #ecf0f1;
+    border-radius: 4px;
+}
+
+.filter input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+}
+
+/* Scrollable Center Content - Responsive */
+.listings {
+    flex: 1;
+    margin-left: clamp(200px, 18vw, 280px);
+    margin-right: clamp(280px, 25vw, 420px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f0f2f5;
+    padding: clamp(15px, 2.5vh, 25px) clamp(10px, 2vw, 25px);
+}
+
+/* Card Styles - Fully Responsive */
+.card-wrapper {
+    perspective: 2000px;
+    margin-bottom: clamp(20px, 3vh, 30px);
+}
+
+.card {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    overflow: visible;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+    min-height: clamp(280px, 35vh, 350px);
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    width: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-front {
+    display: flex;
+    background: white;
+}
+
+/* Image Gallery - Responsive with Contain Fit */
+.image-gallery {
+    width: clamp(280px, 35%, 450px);
+    min-height: clamp(280px, 35vh, 350px);
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apartment-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.apartment-image.active {
+    opacity: 1;
+}
+
+.image-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: clamp(8px, 1vw, 11px);
+    height: clamp(8px, 1vw, 11px);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid rgba(255,255,255,0.8);
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: rgba(255,255,255,0.8);
+}
+
+/* Details Section - Responsive */
+.details {
+    flex: 1;
+    padding: clamp(15px, 2.5vh, 25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.5vw, 15px);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ecf0f1;
+    flex-shrink: 0;
+}
+
+.user-pic {
+    width: clamp(50px, 6vw, 65px);
+    height: clamp(50px, 6vw, 65px);
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 3px solid #2980b9;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.user-pic:hover {
+    transform: scale(1.1);
+}
+
+.username {
+    font-weight: bold;
+    font-size: clamp(1.1em, 1.5vw, 1.35em);
+    cursor: pointer;
+    color: #34495e;
+    transition: color 0.3s;
+}
+
+.username:hover {
+    color: #2980b9;
+}
+
+.apartment-details {
+    flex-grow: 1;
+    font-size: clamp(0.9em, 1.1vw, 1.05em);
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+.apartment-details p {
+    margin: clamp(6px, 1vh, 10px) 0;
+}
+
+.apartment-details strong {
+    color: #2c3e50;
+}
+
+.price {
+    color: #27ae60;
+    font-size: clamp(1.1em, 1.4vw, 1.3em);
+    font-weight: bold;
+}
+
+.choose-button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: clamp(10px, 1.5vh, 14px) clamp(18px, 2.5vw, 28px);
+    cursor: pointer;
+    font-size: clamp(0.9em, 1.1vw, 1.05em);
+    font-weight: bold;
+    transition: all 0.3s;
+    align-self: flex-start;
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+.choose-button:hover {
+    background-color: #1c5980;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Card Back - Responsive */
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transform: rotateY(180deg);
+    padding: clamp(20px, 3vh, 30px);
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.card-back h2 {
+    margin: 0 0 clamp(15px, 2vh, 20px) 0;
+    color: #2980b9;
+    font-size: clamp(1.2em, 2vw, 1.6em);
+    text-align: center;
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 10px;
+}
+
+.back-content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 2vh, 20px);
+}
+
+.back-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(10px, 1.5vw, 15px);
+    margin-bottom: clamp(10px, 1.5vh, 20px);
+}
+
+.back-images img {
+    width: 100%;
+    height: clamp(150px, 20vh, 200px);
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.back-text h3 {
+    color: #34495e;
+    font-size: clamp(1em, 1.3vw, 1.2em);
+    margin: clamp(12px, 2vh, 20px) 0 clamp(6px, 1vh, 10px) 0;
+    border-left: 4px solid #2980b9;
+    padding-left: 12px;
+}
+
+.back-text p {
+    margin: clamp(6px, 1vh, 10px) 0;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+    font-size: clamp(0.85em, 1vw, 0.95em);
+}
+
+.back-text ul {
+    margin: clamp(6px, 1vh, 10px) 0 clamp(6px, 1vh, 10px) 20px;
+    line-height: 1.7;
+}
+
+.back-text li {
+    margin: clamp(4px, 0.8vh, 8px) 0;
+    color: #555;
+    font-size: clamp(0.85em, 1vw, 0.95em);
+}
+
+/* Fixed Map Sidebar - Right - Responsive Width */
+.map {
+    width: clamp(280px, 25vw, 420px);
+    position: fixed;
+    right: 0;
+    top: clamp(60px, 8vh, 80px);
+    bottom: clamp(60px, 8vh, 80px);
+    border-left: 1px solid #bdc3c7;
+    background: #2c3e50;
+    overflow: hidden;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Popup - Responsive */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    max-width: clamp(400px, 50vw, 550px);
+    width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: clamp(20px, 3vh, 35px);
+    display: none;
+}
+
+.popup.active {
+    display: block;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(15px, 2.5vh, 25px);
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 12px;
+}
+
+.popup-header h3 {
+    margin: 0;
+    color: #2980b9;
+    font-size: clamp(1.2em, 2vw, 1.6em);
+}
+
+.popup-close {
+    cursor: pointer;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: bold;
+    color: #444;
+    background: none;
+    border: none;
+    transition: color 0.3s, transform 0.3s;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.popup-close:hover {
+    color: #e74c3c;
+    transform: rotate(90deg);
+}
+
+.popup-content p {
+    margin: clamp(12px, 2vh, 18px) 0;
+    line-height: 1.6;
+    font-size: clamp(0.95em, 1.2vw, 1.08em);
+    color: #333;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1400px) {
+    .image-gallery {
+        width: 35%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .image-gallery {
+        width: 38%;
+    }
+}
+
+@media (max-width: 900px) {
+    header, footer {
+        position: relative;
+    }
+    
+    .page-wrapper {
+        flex-direction: column;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: auto;
+    }
+    
+    .filter, .map {
+        position: relative;
+        width: 100% !important;
+        max-width: 100%;
+        min-width: 100%;
+        top: auto;
+        bottom: auto;
+    }
+    
+    .listings {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .filter {
+        max-height: 400px;
+        border-right: none;
+        border-bottom: 2px solid #bdc3c7;
+    }
+    
+    .map {
+        min-height: 350px;
+        max-height: 400px;
+        border-left: none;
+        border-top: 2px solid #bdc3c7;
+    }
+    
+    .card-front {
+        flex-direction: column;
+    }
+    
+    .image-gallery {
+        width: 100% !important;
+        min-height: 250px;
+    }
+    
+    .details {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .filter {
+        padding: 15px 10px;
+    }
+    
+    .listings {
+        padding: 15px 10px;
+    }
+    
+    .back-images {
+        grid-template-columns: 1fr;
+    }
+}

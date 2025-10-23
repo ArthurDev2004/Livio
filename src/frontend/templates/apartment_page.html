@@ -1,0 +1,476 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'apartment_styles.css' %}" />
+
+<!-- Background -->
+    <div class="page-wrapper">
+        <!-- Fixed Filter Sidebar -->
+        <aside class="filter">
+            <h3>Filter Listings</h3>
+            
+            <div class="filter-section">
+                <div class="filter-header">Room Type</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="roomType" value="shared"> Shared Room</label>
+                    <label><input type="checkbox" name="roomType" value="private"> Private Room</label>
+                    <label><input type="checkbox" name="roomType" value="entire"> Entire Place</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Price Range</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="price" value="under800"> Under $800</label>
+                    <label><input type="checkbox" name="price" value="800to1200"> $800 - $1,200</label>
+                    <label><input type="checkbox" name="price" value="1200to1600"> $1,200 - $1,600</label>
+                    <label><input type="checkbox" name="price" value="1600to2000"> $1,600 - $2,000</label>
+                    <label><input type="checkbox" name="price" value="over2000"> Over $2,000</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Bedrooms</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="bedrooms" value="studio"> Studio</label>
+                    <label><input type="checkbox" name="bedrooms" value="1bed"> 1 Bedroom</label>
+                    <label><input type="checkbox" name="bedrooms" value="2bed"> 2 Bedrooms</label>
+                    <label><input type="checkbox" name="bedrooms" value="3bed"> 3+ Bedrooms</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Bathrooms</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="bathrooms" value="1bath"> 1 Bathroom</label>
+                    <label><input type="checkbox" name="bathrooms" value="2bath"> 2 Bathrooms</label>
+                    <label><input type="checkbox" name="bathrooms" value="3bath"> 3+ Bathrooms</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Amenities</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="amenities" value="parking"> Parking</label>
+                    <label><input type="checkbox" name="amenities" value="laundry"> Laundry</label>
+                    <label><input type="checkbox" name="amenities" value="gym"> Gym</label>
+                    <label><input type="checkbox" name="amenities" value="pool"> Pool</label>
+                    <label><input type="checkbox" name="amenities" value="ac"> Air Conditioning</label>
+                    <label><input type="checkbox" name="amenities" value="heating"> Heating</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Preferences</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="preferences" value="petsAllowed"> Pets Allowed</label>
+                    <label><input type="checkbox" name="preferences" value="furnished"> Furnished</label>
+                    <label><input type="checkbox" name="preferences" value="utilities"> Utilities Included</label>
+                    <label><input type="checkbox" name="preferences" value="smoking"> Smoking Allowed</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-header">Move-in Date</div>
+                <div class="filter-content">
+                    <label><input type="checkbox" name="moveIn" value="immediate"> Immediate</label>
+                    <label><input type="checkbox" name="moveIn" value="1month"> Within 1 Month</label>
+                    <label><input type="checkbox" name="moveIn" value="flexible"> Flexible</label>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Scrollable Center Content -->
+        <main class="listings">
+            <!-- Card 1 -->
+            <div class="card-wrapper">
+                <div class="card" tabindex="0">
+                    <div class="card-front">
+                        <div class="image-gallery">
+                                    <!-- images 1 and 3 are not working -->
+                            <img src="https://images.unsplash.com/photo-1560185005-246c35e43584?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image active" />
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <img src="https://images.unsplash.com/photo-1502672260066-6bc35f0a1829?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <div class="image-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Picture" class="user-pic" tabindex="0" />
+                                <span class="username" tabindex="0">John Doe</span>
+                            </div>
+                            <div class="apartment-details">
+                                <p><strong>Location:</strong> Downtown LA, Walking Distance to Metro</p>
+                                <p><strong>Apartment:</strong> 2 Bed, 1 Bath | 950 sq ft</p>
+                                <p><strong>Monthly Rent:</strong> <span class="price">$1,200</span></p>
+                                <p><strong>Available:</strong> Immediate</p>
+                                <p><strong>Amenities:</strong> Parking, Laundry, AC, Pets OK</p>
+                                <p><strong>Bio:</strong> Friendly roommate looking for someone tidy and respectful. I work from home and enjoy cooking.</p>
+                            </div>
+                            <button class="choose-button">View Details</button>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2>Complete Listing Details</h2>
+                        <div class="back-content">
+                            <div class="back-images">
+                                <img src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=400&q=70" alt="Living Room" />
+                                <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?auto=format&fit=crop&w=400&q=70" alt="Kitchen" />
+                            </div>
+                            <div class="back-text">
+                                <h3>About the Apartment</h3>
+                                <p>This beautifully renovated 2-bedroom apartment features modern appliances, hardwood floors throughout, and large windows providing excellent natural light. The kitchen has been recently updated with granite countertops and stainless steel appliances. Located in the heart of Downtown LA, you'll be steps away from restaurants, cafes, shopping, and the Metro station.</p>
+                                
+                                <h3>Building Amenities</h3>
+                                <ul>
+                                    <li>24/7 Secure Entry with Concierge</li>
+                                    <li>Elevator Access</li>
+                                    <li>On-site Laundry Facilities</li>
+                                    <li>Assigned Parking Space</li>
+                                    <li>Bike Storage</li>
+                                    <li>Package Room</li>
+                                </ul>
+                                
+                                <h3>About Your Roommate</h3>
+                                <p>John is a 28-year-old software developer who works from home. He's clean, organized, and respectful of shared spaces. In his free time, he enjoys hiking, cooking elaborate meals, playing board games, and exploring new restaurants around LA. He's looking for someone with similar values who appreciates a tidy home.</p>
+                                
+                                <h3>What's Included</h3>
+                                <ul>
+                                    <li>Water & Trash (included in rent)</li>
+                                    <li>High-speed Internet (split 50/50)</li>
+                                    <li>Electricity (split 50/50)</li>
+                                    <li>1 Assigned Parking Spot</li>
+                                </ul>
+                                
+                                <h3>Ideal Roommate</h3>
+                                <p>Looking for a clean, responsible, and employed professional. Must be comfortable with occasional cooking smells and respect quiet hours after 10pm. LGBTQ+ friendly household. Non-smoker preferred. Small pets negotiable with pet deposit.</p>
+                                
+                                <h3>Lease Terms</h3>
+                                <p>Flexible lease term (6-12 months available). First month's rent and security deposit required. Credit and background check will be conducted. Move-in date is flexible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-wrapper">
+                <div class="card" tabindex="0">
+                    <div class="card-front">
+                        <div class="image-gallery">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image active" />
+                            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                                    <!-- not working -->
+                            <img src="https://images.unsplash.com/photo-1560185005-246c35e43584?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <div class="image-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Picture" class="user-pic" tabindex="0" />
+                                <span class="username" tabindex="0">Sarah Martinez</span>
+                            </div>
+                            <div class="apartment-details">
+                                <p><strong>Location:</strong> West Hollywood, Near Sunset Strip</p>
+                                <p><strong>Apartment:</strong> 3 Bed, 2 Bath | 1,200 sq ft</p>
+                                <p><strong>Monthly Rent:</strong> <span class="price">$1,450</span></p>
+                                <p><strong>Available:</strong> March 1st</p>
+                                <p><strong>Amenities:</strong> Pool, Gym, Parking, Laundry, Central AC</p>
+                                <p><strong>Bio:</strong> Graphic designer seeking creative, social roommate. Love hosting game nights and weekend brunches!</p>
+                            </div>
+                            <button class="choose-button">View Details</button>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2>Complete Listing Details</h2>
+                        <div class="back-content">
+                            <div class="back-images">
+                                <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=400&q=70" alt="Bedroom" />
+                                <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=400&q=70" alt="Bathroom" />
+                            </div>
+                            <div class="back-text">
+                                <h3>About the Apartment</h3>
+                                <p>Stunning corner unit in West Hollywood with breathtaking city views from a private balcony. This spacious 3-bedroom apartment features an open-concept living area, modern kitchen with island seating, and floor-to-ceiling windows that flood the space with natural light. The master bedroom includes an en-suite bathroom.</p>
+                                
+                                <h3>Building Amenities</h3>
+                                <ul>
+                                    <li>Rooftop Pool & Sundeck</li>
+                                    <li>State-of-the-art Fitness Center</li>
+                                    <li>Rooftop BBQ & Lounge Area</li>
+                                    <li>Secure Underground Parking</li>
+                                    <li>Pet-Friendly (Small Dogs Welcome)</li>
+                                    <li>24/7 Security & Controlled Access</li>
+                                </ul>
+                                
+                                <h3>About Your Roommate</h3>
+                                <p>Sarah is a 26-year-old graphic designer with a passion for creativity and socializing. She loves hosting friends for game nights, cooking brunch on weekends, and exploring LA's art scene. She practices yoga regularly and enjoys live music venues. Sarah maintains a clean home while creating a warm, welcoming atmosphere.</p>
+                                
+                                <h3>What's Included</h3>
+                                <ul>
+                                    <li>Water, Trash & Gas (included)</li>
+                                    <li>Access to All Building Amenities</li>
+                                    <li>1 Reserved Parking Space</li>
+                                    <li>Central AC & Heating</li>
+                                </ul>
+                                
+                                <h3>Ideal Roommate</h3>
+                                <p>Seeking a social, creative individual who enjoys the occasional gathering but also respects personal space. Must be comfortable with guests and weekend activities. LGBTQ+ friendly. Female preferred but open to all genders. Small dog owner is a plus!</p>
+                                
+                                <h3>Lease Terms</h3>
+                                <p>12-month lease preferred. Available furnished or unfurnished. Security deposit equal to one month's rent. Credit check and references required. Move-in date March 1st (flexible by a few days).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-wrapper">
+                <div class="card" tabindex="0">
+                    <div class="card-front">
+                        <div class="image-gallery">         <!-- first not working-->
+                            <img src="https://images.unsplash.com/photo-1502672260066-6bc35f0a1829?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image active" />
+                            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <div class="image-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User Picture" class="user-pic" tabindex="0" />
+                                <span class="username" tabindex="0">Marcus Johnson</span>
+                            </div>
+                            <div class="apartment-details">
+                                <p><strong>Location:</strong> Santa Monica, 5 Blocks to Beach</p>
+                                <p><strong>Apartment:</strong> 2 Bed, 2 Bath | 1,100 sq ft</p>
+                                <p><strong>Monthly Rent:</strong> <span class="price">$1,800</span></p>
+                                <p><strong>Available:</strong> Flexible</p>
+                                <p><strong>Amenities:</strong> Parking, In-Unit Laundry, Balcony, AC/Heat</p>
+                                <p><strong>Bio:</strong> Fitness trainer looking for health-conscious roommate. Early riser who loves outdoor activities and healthy living.</p>
+                            </div>
+                            <button class="choose-button">View Details</button>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2>Complete Listing Details</h2>
+                        <div class="back-content">
+                            <div class="back-images">
+                                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=400&q=70" alt="Living Space" />
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400&q=70" alt="Balcony View" />
+                            </div>
+                            <div class="back-text">
+                                <h3>About the Apartment</h3>
+                                <p>Top floor Santa Monica gem just 5 blocks from the beach! This bright and airy 2-bed/2-bath features hardwood floors, a spacious balcony with ocean breeze, and in-unit washer/dryer. The location can't be beat - walk to the beach, Third Street Promenade, countless restaurants, and the Expo Line for easy access to downtown LA.</p>
+                                
+                                <h3>Building Amenities</h3>
+                                <ul>
+                                    <li>Secure Building Entry</li>
+                                    <li>Bike Storage Room</li>
+                                    <li>Assigned Parking (1 space)</li>
+                                    <li>Package Receiving Service</li>
+                                    <li>Pet-Friendly Building</li>
+                                </ul>
+                                
+                                <h3>About Your Roommate</h3>
+                                <p>Marcus is a 30-year-old certified personal trainer who lives an active lifestyle. He wakes up early for morning workouts, enjoys surfing, running on the beach, and biking along the coastal path. Marcus is extremely clean and organized, maintains a mostly plant-based diet, and creates a positive, energetic living environment.</p>
+                                
+                                <h3>What's Included</h3>
+                                <ul>
+                                    <li>ALL Utilities Included (water, gas, electric, trash)</li>
+                                    <li>High-Speed WiFi Included</li>
+                                    <li>In-Unit Washer & Dryer</li>
+                                    <li>Private Balcony Access</li>
+                                    <li>1 Assigned Parking Spot</li>
+                                </ul>
+                                
+                                <h3>Ideal Roommate</h3>
+                                <p>Perfect for someone who values health, fitness, and outdoor activities. Must be comfortable with early morning routines (Marcus is up by 5:30am most days). Looking for a non-smoker who maintains a clean living space. Someone who appreciates the beach lifestyle and active living.</p>
+                                
+                                <h3>Lease Terms</h3>
+                                <p>Flexible lease term available. All utilities included in the rent makes budgeting easy. One month security deposit. Background and credit check required. Pets considered with additional deposit (25lb weight limit). Move-in date flexible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card-wrapper">
+                <div class="card" tabindex="0">
+                    <div class="card-front">
+                        <div class="image-gallery">
+                                    <!-- 2nd and 3rd images not working -->
+                            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image active" />
+                            <img src="https://images.unsplash.com/photo-1560185005-246c35e43584?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <img src="https://images.unsplash.com/photo-1502672260066-6bc35f0a1829?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <div class="image-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User Picture" class="user-pic" tabindex="0" />
+                                <span class="username" tabindex="0">Emily Chen</span>
+                            </div>
+                            <div class="apartment-details">
+                                <p><strong>Location:</strong> Koreatown, Near Wilshire</p>
+                                <p><strong>Apartment:</strong> 2 Bed, 1.5 Bath | 850 sq ft</p>
+                                <p><strong>Monthly Rent:</strong> <span class="price">$1,100</span></p>
+                                <p><strong>Available:</strong> April 15th</p>
+                                <p><strong>Amenities:</strong> Parking, Pool, Gym, Laundry, Rooftop</p>
+                                <p><strong>Bio:</strong> Graduate student seeking quiet, studious roommate. Love reading, coffee shops, and exploring LA's food scene.</p>
+                            </div>
+                            <button class="choose-button">View Details</button>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2>Complete Listing Details</h2>
+                        <div class="back-content">
+                            <div class="back-images">
+                                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&q=70" alt="Kitchen Area" />
+                                <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=400&q=70" alt="Study Area" />
+                            </div>
+                            <div class="back-text">
+                                <h3>About the Apartment</h3>
+                                <p>Cozy and affordable apartment in the vibrant Koreatown neighborhood. This quiet unit features updated fixtures, plenty of closet space, and large windows for natural light. The building is conveniently located near the Metro Purple Line, amazing Korean BBQ restaurants, trendy cafes, and 24-hour shops.</p>
+                                
+                                <h3>Building Amenities</h3>
+                                <ul>
+                                    <li>Rooftop Lounge & Study Area</li>
+                                    <li>Fitness Center</li>
+                                    <li>Swimming Pool</li>
+                                    <li>Business Center with Printing</li>
+                                    <li>Secure Parking Garage</li>
+                                    <li>Package Lockers</li>
+                                    <li>On-site Management</li>
+                                </ul>
+                                
+                                <h3>About Your Roommate</h3>
+                                <p>Emily is a 24-year-old PhD student in molecular biology at USC. She spends most of her time studying, conducting research, or reading. Emily is quiet, organized, and respectful of shared spaces. She enjoys weekend coffee shop visits, trying new restaurants (especially Korean food), watching K-dramas, and the occasional museum trip.</p>
+                                
+                                <h3>What's Included</h3>
+                                <ul>
+                                    <li>Water, Trash & Gas Included</li>
+                                    <li>Access to All Building Amenities</li>
+                                    <li>1 Parking Space in Secure Garage</li>
+                                    <li>Study Lounge Access (Perfect for Students)</li>
+                                </ul>
+                                
+                                <h3>Ideal Roommate</h3>
+                                <p>Perfect for another graduate student or young professional. Must be quiet, clean, and respectful of study time, especially during finals. Looking for someone responsible who values education and personal growth. Female preferred. Cat lovers are a huge plus - Emily has a friendly tabby cat!</p>
+                                
+                                <h3>Lease Terms</h3>
+                                <p>12-month lease preferred (flexible for academic schedule). First month and security deposit required. Utilities split 50/50 (typically $40-60 per person). Internet split. Credit check and references needed. Available mid-April, perfect timing for summer session or fall semester.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card-wrapper">
+                <div class="card" tabindex="0">
+                    <div class="card-front">
+                        <div class="image-gallery">
+                                    <!-- last one not working -->
+                            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image active" />
+                            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <img src="https://images.unsplash.com/photo-1560185005-246c35e43584?auto=format&fit=crop&w=600&q=70" alt="Apartment Image" class="apartment-image" />
+                            <div class="image-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="user-info">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User Picture" class="user-pic" tabindex="0" />
+                                <span class="username" tabindex="0">David Kim</span>
+                            </div>
+                            <div class="apartment-details">
+                                <p><strong>Location:</strong> Silver Lake, Arts District</p>
+                                <p><strong>Apartment:</strong> 3 Bed, 2 Bath | 1,300 sq ft</p>
+                                <p><strong>Monthly Rent:</strong> <span class="price">$1,350</span></p>
+                                <p><strong>Available:</strong> Immediate</p>
+                                <p><strong>Amenities:</strong> Parking (2 spots), In-Unit Laundry, Patio, Fireplace</p>
+                                <p><strong>Bio:</strong> Musician and producer looking for creative roommate. Home studio but soundproofed. Love live music and art.</p>
+                            </div>
+                            <button class="choose-button">View Details</button>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h2>Complete Listing Details</h2>
+                        <div class="back-content">
+                            <div class="back-images">
+                                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=400&q=70" alt="Studio Space" />
+                                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400&q=70" alt="Patio" />
+                            </div>
+                            <div class="back-text">
+                                <h3>About the Apartment</h3>
+                                <p>Incredible loft-style apartment in the heart of Silver Lake's arts district. This unique space features soaring ceilings, exposed brick walls, concrete floors, and industrial-chic finishes. The open floor plan is perfect for creative living, and the private patio is ideal for relaxing or entertaining. Walking distance to Sunset Junction, trendy cafes, galleries, and music venues.</p>
+                                
+                                <h3>Building & Space Features</h3>
+                                <ul>
+                                    <li>Professional Soundproofed Studio Room</li>
+                                    <li>High Ceilings (14ft+)</li>
+                                    <li>Exposed Brick & Industrial Design</li>
+                                    <li>Private Patio with BBQ Setup</li>
+                                    <li>2 Dedicated Parking Spots</li>
+                                    <li>In-Unit Washer/Dryer</li>
+                                    <li>Gas Fireplace in Living Room</li>
+                                </ul>
+                                
+                                <h3>About Your Roommate</h3>
+                                <p>David is a 29-year-old music producer and DJ who works primarily from his home studio. The studio is professionally soundproofed, so music production doesn't disturb the rest of the apartment. He's creative, laid-back, and respectful of shared spaces. David enjoys attending live music shows, exploring art galleries, and hosting small creative gatherings. He's 420-friendly and welcomes like-minded individuals.</p>
+                                
+                                <h3>What's Included</h3>
+                                <ul>
+                                    <li>2 Available Bedrooms (1 Large, 1 Medium)</li>
+                                    <li>Shared Living Space & Kitchen</li>
+                                    <li>Patio Access</li>
+                                    <li>2 Parking Spots Total</li>
+                                    <li>In-Unit Laundry</li>
+                                </ul>
+                                
+                                <h3>Ideal Roommate</h3>
+                                <p>Seeking a creative professional, artist, musician, or someone in the entertainment industry. Must be comfortable with music (studio is soundproofed but occasional jam sessions happen). Open-minded, respectful, and chill vibe is essential. LGBTQ+ friendly. 420-friendly environment. Must appreciate the arts and creative lifestyle.</p>
+                                
+                                <h3>Lease Terms</h3>
+                                <p>Flexible lease term (6-12 months). Utilities split equally among roommates. Pet-friendly with owner approval. First month and security deposit required. Perfect for someone looking to immerse themselves in LA's creative community. Available for immediate move-in.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Fixed Map Sidebar -->
+        <aside class="map" id="map">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Map of LA" />
+        </aside>
+    </div>
+
+    <!-- Popup for user profile -->
+    <div class="popup" id="userPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <div class="popup-header">
+            <h3 id="popupTitle">User Profile</h3>
+            <button class="popup-close" aria-label="Close popup">×</button>
+        </div>
+        <div class="popup-content"></div>
+    </div>
+
+    <script src="{% static 'apartment_script.js' %}"></script>
+
+{% endblock %}
+
