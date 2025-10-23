@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'profiles',
+    'posts',
+    'users',
+    'gradeLevels',
+    'genders',
+    'ethnicity',
     'roommates',
     'features',
     'rest_framework',
