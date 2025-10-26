@@ -5,3 +5,5 @@ __pycache__/ # ignores the bytecode that is generated from the source code, only
 *.pyc
 
 .vscode/ #ignores the specific VS code editor files, so it is only source code and other neccesary files
+
+.sqlite3 # ignores the sqlite files, since everybody will have a differnet db for local testing
