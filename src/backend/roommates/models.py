@@ -1,11 +1,10 @@
 from django.db import models
-from backend.profiles.models import Profile
+from posts.models import Post
+from features.models import Feature
 
 # Create your models here.
-class RoomatePost:
-    # will need to add profile 
-    profile: Profile = models.ForeignKey(to=Profile, on_delete=models.DO_NOTHING)
-    # will need to add features here (will be a many to many relationship) 
-    funFact: str = models.TextField()
+class RoommatePost(Post):
+    features: list[Feature] = models.ManyToManyField(Feature) # this tells the ORM that this is a many to many relationship and it will create the neccesary bridge entitiy table in the db
+    funFact: str = models.TextField() # will be the fun fact  which will be used to display in the frontend
     
 

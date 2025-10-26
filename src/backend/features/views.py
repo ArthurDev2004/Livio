@@ -6,38 +6,19 @@ from .serializers import FeatureSerializer
 from .models import Feature
 from rest_framework import status
 
-# Create your views here.
 
-def feature(request):
-    return JsonResponse({'name' : 'Pet-Friendly'})
-
-def postfeature(request):
-
-    if request.method == 'POST':
-        return JsonResponse({'name': 'Got the post!'})
-    
-    return JsonResponse({'name' : 'No get the post!'})
-
-# view which is done with the rest framework way
+# will get all of the features which we currently have
 @api_view(['GET'])
-def createFeature(request):
-    
-    features = [Feature(name="Vegetarian", icon="blank"), Feature(name="Pet-Friendly", icon="blank"), Feature(name="No-Smoker", icon="blank")]
+def getFeatures(request):
 
-    serializer = FeatureSerializer(features, many=True) # will serialize the data into regular python data types from django models 
+    features = Feature.objects.all() # gets all of the features, they are models in djnago
 
-    return Response(serializer.data)
+    print(features[0].type)
 
+    serializer = FeatureSerializer(features, many=True)
 
-# as of now, it should just return the same content it received
-@api_view(['POST'])
-def new(request):
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
-    serializer = FeatureSerializer(data=request.data)
-
-    serializer.is_valid() # needs to be called prior to accessing its data attribute
-
-    return Response(serializer.data, status=status.HTTP_201_CREATED) # added created status for the POST request
 
 
 

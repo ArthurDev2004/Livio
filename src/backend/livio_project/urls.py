@@ -33,7 +33,10 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
     path('', include("roommates.urls")),
-    path('features/', include('features.urls'))
+    path('features/', include('features.urls')),
+    path('gender/',include('genders.urls')),
+    path('nationalities/', include('nationalities.urls')),
+    path('types/', include('posttype.urls'))
 ]
 
 # added all of the urls from the roommates app urls.py to the main one, so it is able to go to the proper place
