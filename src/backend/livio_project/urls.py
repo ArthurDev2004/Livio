@@ -28,7 +28,7 @@ def signup(request):
     return render(request, "signup_page.html")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
