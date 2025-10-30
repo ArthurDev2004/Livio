@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 def home(request):
     return render(request, "home_page.html")
@@ -36,7 +37,9 @@ urlpatterns = [
     path('features/', include('features.urls')),
     path('gender/',include('genders.urls')),
     path('nationalities/', include('nationalities.urls')),
-    path('types/', include('posttype.urls'))
+    path('types/', include('posttype.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name="jwt"),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh")
 ]
 
 # added all of the urls from the roommates app urls.py to the main one, so it is able to go to the proper place

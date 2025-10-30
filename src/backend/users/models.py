@@ -8,7 +8,7 @@ from django.contrib.auth.models import BaseUserManager
 class CustomUserManager(BaseUserManager):
    
    # this is the neccesary method for creating the custom user class 
-   def create_user(self, username, email, password=None):
+   def create_user(self, username, email, password):
      email = self.normalize_email(email) # will normalize email to the lowercase format 
      user = self.model(username=username, email=email)
      user.set_password(password)
@@ -27,6 +27,7 @@ class User(AbstractBaseUser): # will inherit stuff from the AbstractBaseUser but
    username: str = models.CharField(max_length=50, unique=True) # must be unique see it is being used as the username
    email: str = models.EmailField(max_length=50, unique=True)
    join_date = models.DateTimeField(null=False, auto_now_add=True) # this is the date in which the user joined, when new DB is made then use auto_now_add
+   is_active = models.BooleanField(default=True) # this says that the user is an active user, and is used for auth
 
    REQUIRED_FIELDS = ['email'] # see if it works without this 
    USERNAME_FIELD = 'username'
