@@ -33,11 +33,9 @@ urlpatterns = [
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
-    path('', include("roommates.urls")),
-    path('features/', include('features.urls')),
-    path('gender/',include('genders.urls')),
-    path('nationalities/', include('nationalities.urls')),
-    path('types/', include('posttype.urls')),
+    path('users/', include('users.urls')),
+    path('profiles/', include('profiles.urls')),
+    path('roommates/', include('roommates.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name="jwt"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh")
 ]

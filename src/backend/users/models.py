@@ -11,7 +11,7 @@ class CustomUserManager(BaseUserManager):
    def create_user(self, username, email, password):
      email = self.normalize_email(email) # will normalize email to the lowercase format 
      user = self.model(username=username, email=email)
-     user.set_password(password)
+     user.set_password(password) # should hash the password
      user.save()
 
      return user 
@@ -21,8 +21,7 @@ class CustomUserManager(BaseUserManager):
       pass
       
 
-
-# Create your models here.
+# custom user class 
 class User(AbstractBaseUser): # will inherit stuff from the AbstractBaseUser but we can add our own fields as 
    username: str = models.CharField(max_length=50, unique=True) # must be unique see it is being used as the username
    email: str = models.EmailField(max_length=50, unique=True)
