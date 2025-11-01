@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import RoommatePost
+from .models import RoommatePost, InterestedBuffer
 from features.serializers import FeatureSerializer
 from profiles.serializers import ProfileGetSerializer
 
@@ -17,4 +17,13 @@ class RoommatePostGetSerializer(ModelSerializer):
     class Meta:
         model = RoommatePost
         fields = ['title', 'description', 'originalPostDateTime', 'postLastUpdateDateTime', 'profile', 'features', 'funFact'] # these are the fields which will be serialized to JSON format and etc
-    
+
+
+# this is the serializer which will be used for GET requests to get the interested buffer of that specific profile (will be for responses to get the GET requests)
+class InterestedBufferGetSerializer(ModelSerializer):
+
+    interestedProfiles = ProfileGetSerializer(many=True) # many is assigned true since there may be many profiles which are in the interested profiles
+
+    class Meta:
+        model = InterestedBuffer
+        fields = ['interestedProfiles'] # only this field needs to get serialized during the GET request, because do not need to send information back like profile (owner) which will already be there 

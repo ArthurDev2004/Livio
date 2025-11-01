@@ -7,11 +7,11 @@ from django.contrib.auth.models import BaseUserManager
 # custom user manager for the custom user class to create the user and to create a superuser as well 
 class CustomUserManager(BaseUserManager):
    
-   # this is the neccesary method for creating the custom user class 
+   # this is the neccesary method for creating the custom user class (need to call this function to create the custom user)
    def create_user(self, username, email, password):
      email = self.normalize_email(email) # will normalize email to the lowercase format 
      user = self.model(username=username, email=email)
-     user.set_password(password) # should hash the password
+     user.set_password(password) # should hash the password (figure out what is the hashing algorithm used)
      user.save()
 
      return user 

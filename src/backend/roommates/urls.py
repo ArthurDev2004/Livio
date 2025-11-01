@@ -5,6 +5,7 @@ app_name = "roomates" # can be used later down the line if needed for resolving 
 
 urlpatterns = [
     path('greeting', views.greetThem, name="greeting"),
-    path('current', views.currentUserRoommatePost, name='currrent_user_roommate_post')
+    path('current', views.currentUserRoommatePost, name='currrent_user_roommate_post'),
+    path('current/interested', views.interestedRoommates, name='current_user_interested_roommates') # returns the possible roommates that the currrent user is interested in
 ]
 

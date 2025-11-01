@@ -1,6 +1,7 @@
 from django.db import models
 from posts.models import Post
 from features.models import Feature
+from profiles.models import Profile
 
 
 
@@ -14,11 +15,26 @@ class RoommatePost(Post):
 # can use the ones which they are interested in on the side to see if they want to continue with messaging them
 
 # has a FK to 
-class InterestedRoommate(models.Model):
-    profile = models.ForeignKey('profiles.profile', on_delete=models.DO_NOTHING)
-    interestedProfile = models.ForeignKey('profiles.profile', on_delete=models.DO_NOTHING)
-    pk = models.CompositePrimaryKey('profile', 'interestedProfile') # figure out way to have this be an appropriate primary key to not be duplicate since if the roles were resversed the primary key would be the same
+# class InterestedRoommate(models.Model):
+#     profile = models.ForeignKey('profiles.profile', on_delete=models.DO_NOTHING)
+#     interestedProfile = models.ForeignKey('profiles.profile', on_delete=models.DO_NOTHING)
+#     pk = models.CompositePrimaryKey('profile', 'interestedProfile') # figure out way to have this be an appropriate primary key to not be duplicate since if the roles were resversed the primary key would be the same
+
+# this is the buffer class which will hold the possible roommates this person is interested in, and will be there to allow them to message them 
+class InterestedBuffer(models.Model): 
+    owner = models.ForeignKey(Profile, on_delete=models.DO_NOTHING) # the owner of the buffer 
+    interestedProfiles: list[Profile] = models.ManyToManyField(Profile, db_table="Interested_Roommates", related_name="interested_profiles") # this tells ORM to make a bridge entity for the interested profiles for the many to many relationship
+    bufferCount = models.IntegerField(default=0) # the size of the buffer, so do not need to always call a function to get the size 
+
+    def __str__(self):
+        return f"{self.owner.firstName} {self.owner.lastName}'s Interested Roommate Buffer"
 
 
-class UninterestedRoommate(models.Model):
-    pass
+# will serve as the bridge entity class between profile and interested buffer 
+# class PossibleRoommates(models.Model):
+#     interestedProfile = models.ForeignKey(Profile, on_delete=models.DO_NOTHING)
+#     buffer = models.ForeignKey(InterestedBuffer, on_delete=models.DO_NOTHING)
+#     #bufferOwner = models.ForeignKey('profiles.Profile', on_delete=models.DO_NOTHING)
+
+# class UninterestedRoommate(models.Model):
+#     pass

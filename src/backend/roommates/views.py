@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .models import RoommatePost
-from .serializers import RoommatePostGetSerializer
+from .models import RoommatePost, InterestedBuffer
+from .serializers import RoommatePostGetSerializer, InterestedBufferGetSerializer
 from rest_framework.response import Response
 
 
@@ -43,7 +43,15 @@ def currentUserRoommatePost(request):
  # function which will handle sending the interested roommates to frontend so it can be properly displayed 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def interstedRoommmates(request):
-    pass
+def interestedRoommates(request):
+    
+    user_profile = request.user.profile # gets the profile of the user making the request to the variable 
+
+    possibly_interested = InterestedBuffer.objects.get(owner=user_profile) # will get the buffer where the owner is this specific profile 
+
+    serializer = InterestedBufferGetSerializer(possibly_interested, many=False) # there will only be one buffer which will need to get serialized
+
+    return Response(serializer.data, status=status.HTTP_200_OK) # will return the serialized data in JSON format and put the proper status code 
+
 
 # function which will handle adding the interested roommmate for furthur clarification
