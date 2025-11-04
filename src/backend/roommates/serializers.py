@@ -27,3 +27,9 @@ class InterestedBufferGetSerializer(ModelSerializer):
     class Meta:
         model = InterestedBuffer
         fields = ['interestedProfiles'] # only this field needs to get serialized during the GET request, because do not need to send information back like profile (owner) which will already be there 
+
+
+# need to make it so that whenever a roommmate post is created for user, can have it also create the interested buffer for that user 
+# can just pass in the id of the profile or something to get it going, instead of passing the entire profile 
+class InterestedBufferAddSerializer(ModelSerializer):
+    pass

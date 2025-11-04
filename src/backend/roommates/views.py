@@ -55,3 +55,8 @@ def interestedRoommates(request):
 
 
 # function which will handle adding the interested roommmate for furthur clarification
+# will be a POST request 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addInterestedRoommate(request):
+    pass

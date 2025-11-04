@@ -8,7 +8,9 @@ from profiles.models import Profile
 class RoommatePost(Post):
     features: list[Feature] = models.ManyToManyField(Feature) # this tells the ORM that this is a many to many relationship and it will create the neccesary bridge entitiy table in the db
     funFact: str = models.TextField() # will be the fun fact  which will be used to display in the frontend
-    
+    # add budget for the roommmate post; budget: int = models.IntegerField()
+    # add move in ready to in; moveInDate = models.DateField() 
+    # look into the __ syntax for the queries
 
 # need to create classes which are used to keep track of the profiles(people) they are interested in, and the ones which they are not
 # can use the ones which they are not interested in, to filter out in further showings
@@ -38,3 +40,14 @@ class InterestedBuffer(models.Model):
 
 # class UninterestedRoommate(models.Model):
 #     pass
+
+
+# filter class which will have the logic for the filtering
+class Filter:
+
+    # this will be the main filter method that will be used
+    @staticmethod
+    def filter(criteria: str, value):
+        pass
+    
+    
