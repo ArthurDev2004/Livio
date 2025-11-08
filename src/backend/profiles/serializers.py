@@ -56,31 +56,32 @@ from gradeLevels.serializers import GradeLevelSerializer
 
 # will be used to deserialize the JSON and to create the neccesary model 
 class ProfileCreationSerializer(ModelSerializer):
+
+    # the slug related fields for the serializers take the string which was passed in, and make the deserialization take into accoutn the objects those strings are for and saves it like that 
+    gender = serializers.SlugRelatedField(slug_field='name', queryset=Gender.objects.all()) # the query set is the set of models/objects which will be searched for a matching slug
+    gradeLevel = serializers.SlugRelatedField(slug_field='name', queryset=GradeLevel.objects.all())
+    nationality = serializers.SlugRelatedField(slug_field='name', queryset=Nationality.objects.all())
+
     class Meta:
         model = Profile
         fields = ['firstName', 'lastName', 'age', 'gender', 'gradeLevel', 'nationality', 'bio'] # these are the fields that it should expect and work with when deserialzing the JSON
 
+
+
     # used to create the profile object 
     def create(self, validated_data):
-        newProfile = Profile()
-        newProfile.firstName = validated_data['firstName']
-        newProfile.lastName = validated_data['lastName']
-        newProfile.age = validated_data['age']
-        newProfile.bio = validated_data['bio']
-        newProfile.gender = validated_data['gender']
-        newProfile.gradeLevel = validated_data['gradeLevel']
-        newProfile.nationality = validated_data['nationality']
+        profile = Profile(**validated_data) # create teh profile with the validated data 
+        profile.profile_user = self.context['request'] # adds the user to the profile 
 
-        newProfile.profile_user = self.context['request'].user # sets the user linked to the profile to the same user who made the request to make the profile 
+        profile.save()
 
-        newProfile.save() # actually save to DB using the ORM
-
-        return newProfile
+        return profile 
+    
          
 
 # this will be the serializer used in GET requests to return the actual name of the gender, nationality, and etc, instead of the primary keys of those attributes
 class ProfileGetSerializer(ModelSerializer):
-    gender = serializers.StringRelatedField(many=False)
+    gender = serializers.StringRelatedField(many=False) # will serialize the objects to their str function return values 
     gradeLevel = serializers.StringRelatedField(many=False)
     nationality = serializers.StringRelatedField(many=False)
 

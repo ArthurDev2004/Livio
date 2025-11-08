@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import RoommatePost, InterestedBuffer
 from features.serializers import FeatureSerializer
 from profiles.serializers import ProfileGetSerializer
+from features.models import Feature
 
 # serializer which will be used for GET requests for roommate posts (will be for the responses to get the GET requests)
 class RoommatePostGetSerializer(ModelSerializer):
@@ -18,6 +19,38 @@ class RoommatePostGetSerializer(ModelSerializer):
         model = RoommatePost
         fields = ['title', 'description', 'originalPostDateTime', 'postLastUpdateDateTime', 'profile', 'features', 'funFact'] # these are the fields which will be serialized to JSON format and etc
 
+# will be used to deserialize whenever getting data from a post request 
+class RoommateCreationSerializer(ModelSerializer):
+
+    # may be something wrong with this 
+    features = serializers.SlugRelatedField(slug_field='name', queryset=Feature.objects.all(), many=True) # many signifies that it is used in a many to many relationship
+
+
+    class Meta:
+        model = RoommatePost
+        fields = ['title', 'description', 'budget', 'funFact', 'moveInDate', 'features'] # these are the fields which should be handled in the deserialization, the dates will be handled by the DB 
+
+
+    # override the create method to add the profile when the roommate post is being made
+    def create(self, validated_data):
+        post = RoommatePost()
+
+        post.title = validated_data['title']
+        post.description = validated_data['description']
+        post.funFact = validated_data['funFact']
+        post.budget = validated_data['budget']
+        post.moveInDate = validated_data['moveInDate']
+        post.profile = self.context['profile'] # puts the profile of the current user who made the request
+
+        post.save() # need to save it first before can add the many to many relationship object
+
+        post.features.set(validated_data['features']) # now can save the features (which have a many to many relationship), using the set method
+
+        post.save()
+
+        return post 
+    
+    # may need to override the update method as well
 
 # this is the serializer which will be used for GET requests to get the interested buffer of that specific profile (will be for responses to get the GET requests)
 class InterestedBufferGetSerializer(ModelSerializer):
@@ -26,7 +59,7 @@ class InterestedBufferGetSerializer(ModelSerializer):
 
     class Meta:
         model = InterestedBuffer
-        fields = ['interestedProfiles'] # only this field needs to get serialized during the GET request, because do not need to send information back like profile (owner) which will already be there 
+        fields = ['bufferCount', 'interestedProfiles'] # only this field needs to get serialized during the GET request, because do not need to send information back like profile (owner) which will already be there 
 
 
 # need to make it so that whenever a roommmate post is created for user, can have it also create the interested buffer for that user 
