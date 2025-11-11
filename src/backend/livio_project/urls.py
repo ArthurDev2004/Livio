@@ -41,7 +41,7 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     path('roommates/', include('roommates.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name="jwt"),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh")
+    path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh"),
     path('', include("roommates.urls")),
     path('features/', include('features.urls'))
 ]
