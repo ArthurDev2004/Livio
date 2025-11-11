@@ -28,16 +28,22 @@ def login_view(request):
 def signup(request):
     return render(request, "signup_page.html")
 
+def apartment (request):
+    return render(request, "apartment_page.html")
+
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
+    path('apartments/', apartment, name='apartment'),
     path('users/', include('users.urls')),
     path('profiles/', include('profiles.urls')),
     path('roommates/', include('roommates.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name="jwt"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh")
+    path('', include("roommates.urls")),
+    path('features/', include('features.urls'))
 ]
 
 # added all of the urls from the roommates app urls.py to the main one, so it is able to go to the proper place
