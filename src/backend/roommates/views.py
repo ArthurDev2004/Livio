@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import RoommatePost, InterestedBuffer
-from .serializers import RoommatePostGetSerializer, InterestedBufferGetSerializer, RoommateCreationSerializer
+from .serializers import RoommatePostGetSerializer, InterestedBufferGetSerializer, RoommateCreationSerializer, RoommatePaginationSerializer
 from rest_framework.response import Response
 from profiles.models import Profile
 
@@ -68,6 +68,25 @@ def createRoommatePost(request):
     
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+# will be used to edit the roommate post, if the user chooses to do so
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editRoommatePost(request):
+    
+    # get the current roommate post for the current user
+    current_profile = request.user.profile
+    current_profile_roommate_post = RoommatePost.objects.get(profile=current_profile) # should get the roommate post which is linked with this profile
+
+    serializer = RoommateCreationSerializer(current_profile_roommate_post, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
+
+    return Response({"done" : "done"}, status=status.HTTP_200_OK)
+
+
  # need to create a cursor pagination api to allow for the infinite scroll that we want to show on the frontend and have the frontend make the appropriate calls for the new data to have infinite feeling
 
 
@@ -112,4 +131,35 @@ def addInterestedRoommate(request):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+# will be used for the pagination portion (will use cursor pagination, using a cursor and a limit)
+# cursor will keep track of the previous_id or position (cursor), and it will continue from there
+# need to figure out the pagination with the filtering and sorting as well
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def pagination(request):
+    # cursor and the limit, will be passed in as query parameters 
+
+    query_params = request.query_params # assign the query paramaters from the url, to the dictionary so it can be used to determine if it is the intial pagination request or non-initial 
+    limit = int(query_params['limit']) 
     
+
+    #initial pagination request will only have the limt parameter, everything from there on will have both the limit and cursor parameter
+
+    # relies on sorting order (in the very base case, sorting is done based on id)
+
+    if "cursor" not in query_params: # case of the first pagination
+        roommatePosts = RoommatePost.objects.all()[:limit] # will only provide the specified limit of the objects
+        cursor = roommatePosts[limit-1].id # get id of the last element in the list of posts
+        # assign the cursor value so that it can be sent back with the response 
+    else: # case where cursor is passed in as a query parameter 
+        previous_cursor = int(query_params['cursor'])
+        roommatePosts = RoommatePost.objects.filter(pk__gt=previous_cursor)[:limit] # limits from this point on
+        cursor = roommatePosts[limit-1].id # sets the new cursor value 
+
+    # serialize the data so it shows properly on the JSON 
+    serializer = RoommatePaginationSerializer(roommatePosts, many=True)
+
+    return Response({"data" : serializer.data, "cursor" : cursor}, status=status.HTTP_200_OK)
+    
+
+# works thus far, the cursor pagination

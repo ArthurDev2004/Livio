@@ -8,6 +8,8 @@ urlpatterns = [
     path('current', views.currentUserRoommatePost, name='currrent_user_roommate_post'),
     path('current/interested', views.interestedRoommates, name='current_user_interested_roommates'), # returns the possible roommates that the currrent user is interested in
     path('create/', views.createRoommatePost, name="create_roommate_post"), 
-    path('current/interested/add', views.addInterestedRoommate, name="add_interested_roommate")
+    path('current/interested/add', views.addInterestedRoommate, name="add_interested_roommate"),
+    path("update/", views.editRoommatePost, name="update_roommate_post"),
+    path('', views.pagination, name="get_page")
 ]
 

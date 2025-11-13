@@ -16,6 +16,7 @@ class Profile(models.Model):
     nationality: Nationality = models.ForeignKey(Nationality, on_delete=models.DO_NOTHING, related_name='nationality')
     bio: str = models.TextField()
     profile_user: User = models.OneToOneField(User, on_delete=models.DO_NOTHING, default=None, related_name='profile')
+    has_roommate_post: bool = models.BooleanField(default=False) # will indicate wheter the profile has a roommate post or not, and if so, will be used to know which page to show them
     #posts: list[Post] # will be a foriegn key relationship in post table 
 
     def __str__(self):

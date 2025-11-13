@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import RoommatePost, InterestedBuffer
 from features.serializers import FeatureSerializer
-from profiles.serializers import ProfileGetSerializer
+from profiles.serializers import ProfileGetSerializer, ProfilePaginationSerializer
 from features.models import Feature
 
 # serializer which will be used for GET requests for roommate posts (will be for the responses to get the GET requests)
@@ -50,7 +50,31 @@ class RoommateCreationSerializer(ModelSerializer):
 
         return post 
     
-    # may need to override the update method as well
+    # used whenever updating the roommate post
+    def update(self, instance, validated_data):
+        
+        updateValues = list(validated_data.keys())
+
+        for newField in updateValues:
+
+            match(newField):
+                case 'title':
+                    instance.title = validated_data[newField]
+                case 'description':
+                    instance.description = validated_data[newField]
+                case 'funFact':
+                    instance.funFact = validated_data[newField]
+                case 'budget':
+                    instance.budget = validated_data[newField]   
+                case 'moveInDate':
+                    instance.moveInDate = validated_data[newField]
+                case 'features':
+                    instance.features.set(validated_data[newField])
+                # no need to update the profile, since profile is the same, since same user
+
+        instance.save()
+
+        return instance
 
 # this is the serializer which will be used for GET requests to get the interested buffer of that specific profile (will be for responses to get the GET requests)
 class InterestedBufferGetSerializer(ModelSerializer):
@@ -66,3 +90,13 @@ class InterestedBufferGetSerializer(ModelSerializer):
 # can just pass in the id of the profile or something to get it going, instead of passing the entire profile 
 class InterestedBufferAddSerializer(ModelSerializer):
     pass
+
+# will be used in serializing for the pagination responses
+class RoommatePaginationSerializer(ModelSerializer):
+    
+    features = FeatureSerializer(many=True) # will serialize the features 
+    profile = ProfilePaginationSerializer(many=False) # will serialize to only get id of the profile of the current user
+
+    class Meta:
+        model = RoommatePost
+        fields = ['title', 'description', 'funFact', 'budget', 'moveInDate', 'features', 'profile']

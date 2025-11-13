@@ -1,18 +1,19 @@
-# 🧠 Lorem Ipsum Project
+# Livio
 
-A modern **Lorem Ipsum generator** built for developers who want clean placeholder content with Markdown support.  
-It’s lightweight, fast, and easily integrable into any workflow.
-
----
-
-## 🚀 Features
-
-- 📄 Generates structured Markdown text  
-- ⚙️ Customizable word and paragraph count  
-- 💡 Ready for integration with APIs or web apps  
-- 🧩 Works offline — no dependencies  
-- 🔧 Simple CLI and module usage  
+All in one platform for students to find housing, roommates, and engage in local commerce! Built by students, for students!
 
 ---
 
-## 📦 Installation
+## Housing
+
+Find housing nearby!
+
+## Roommates 
+
+Looking for a roommate? Livio is the perfect place to look! There are many students, just like you, looking for a great roommate. Everyone has their preference in the type of roommate they would like to have, and we get that. You're able to filter based on different criterias to make sure you find the best roommate for you. If you find someone interesting as a possible roommate match, add it to your interested roommates, and their profile will be there for you to always be able to reach out. 
+
+## Marketplace 
+
+---
+
+## Find Us Here 

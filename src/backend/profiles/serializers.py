@@ -64,7 +64,7 @@ class ProfileCreationSerializer(ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['firstName', 'lastName', 'age', 'gender', 'gradeLevel', 'nationality', 'bio'] # these are the fields that it should expect and work with when deserialzing the JSON
+        fields = ['firstName', 'lastName', 'age', 'gender', 'gradeLevel', 'nationality', 'bio', 'has_roommate_post'] # these are the fields that it should expect and work with when deserialzing the JSON
 
 
 
@@ -77,6 +77,40 @@ class ProfileCreationSerializer(ModelSerializer):
 
         return profile 
     
+
+    # will be used to update the profile object (needed for the update endpoint we have for the profile update)
+    def update(self, instance, validated_data):
+        
+        updateValues = list(validated_data.keys()) # will create a list of the keys in the dictionary/JSON which was passed in
+
+        print(updateValues)
+
+        for field in updateValues:
+
+            # will be used to match 
+            match(field):
+                case 'firstName':
+                    instance.firstName = validated_data[field]
+                case 'lastName':
+                    instance.lastName = validated_data[field]
+                case 'age':
+                    instance.age = validated_data[field]
+                case 'gender':
+                    instance.gender = validated_data[field]
+                case 'gradeLevel':
+                    instance.gradeLevel = validated_data[field]
+                case 'nationality':
+                    instance.nationality = validated_data[field]
+                case 'bio':
+                    instance.bio = validated_data[field]
+                case 'has_roommate_post':
+                    instance.has_roommate_post = validated_data[field]
+
+        
+        instance.save() # saves it with the updated value 
+
+        return instance 
+    
          
 
 # this will be the serializer used in GET requests to return the actual name of the gender, nationality, and etc, instead of the primary keys of those attributes
@@ -87,4 +121,12 @@ class ProfileGetSerializer(ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['firstName', 'lastName', 'age', 'gender', 'gradeLevel', 'nationality', 'bio'] # these are the fields which the serializer/deserializer should worry about 
+        fields = ['firstName', 'lastName', 'age', 'gender', 'gradeLevel', 'nationality', 'bio', 'has_roommate_post'] # these are the fields which the serializer/deserializer should worry about 
+
+
+# will be used to only serialize the id from the Profile, which is all that will be needed for sending it back to the frontend in pagination
+class ProfilePaginationSerializer(ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ['id']

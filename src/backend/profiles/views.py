@@ -63,3 +63,21 @@ def createProfile(request):
 
     return Response({"done" : "done"}, status=status.HTTP_201_CREATED) # returns the profile which was just created
 
+# will be used to edit profile if the user chooses to do so
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editProfile(request):
+    
+    # get the profile of the user making the request, and pass that instance into the serializer
+    current_profile = request.user.profile 
+    
+    serializer = ProfileCreationSerializer(current_profile, data=request.data)
+
+    if serializer.is_valid():
+        print("Gets here")
+        serializer.save() # will call the update method 
+
+    print(serializer.errors)
+
+    return Response({"done" : "done"}, status=status.HTTP_200_OK)
+    
