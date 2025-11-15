@@ -6,9 +6,37 @@ from datetime import date
 from genders.models import Gender
 from nationalities.models import Nationality
 
+"""
+Module Name: roommates.modelss 
+Date of Code: October 17, 2025 - November 10, 2025
+Programmer's Name: Arthur Lazaryan
+Description: Contains classes for all the neccesary things needed for having the Roommates portion of the application to work. 
+Important Functions: N/A
+Data Structures: N/A
+Algorithms: N/A
+"""
+
 
 
 class RoommatePost(Post):
+    """
+    Class Name: RoommatePost 
+    Date of Code: October 17, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Class for the Roommate Post which inherits from the base class of Post, which itself inherited from Django's Model class.
+    Important Functions/Methods: 
+        __str__ - Overrides the str method of class, so there is a string reprsentation of the class. Used by the Django ORM to identify the objects uniquely 
+
+            Input: self - Python's equivalent of this in JAVA 
+            Output: str - Return's string representation of the specific object 
+
+    Data Structures: 
+            features - it is a many to many field through Django's ORM  in the relational model but as the type hinting shows, it can be thought of as a list of Feature objects 
+    
+    Algorithms: N/A            
+    """
+
+
     features: list[Feature] = models.ManyToManyField(Feature) # this tells the ORM that this is a many to many relationship and it will create the neccesary bridge entitiy table in the db
     funFact: str = models.TextField() # will be the fun fact  which will be used to display in the frontend
     budget: int = models.DecimalField(max_digits=10, decimal_places=2) # will be the budget they have for being a roommate 
@@ -31,6 +59,25 @@ class RoommatePost(Post):
 
 # this is the buffer class which will hold the possible roommates this person is interested in, and will be there to allow them to message them 
 class InterestedBuffer(models.Model): 
+    """
+    Class Name: InterestedBuffer 
+    Date of Code: October 25, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Class for the other profiles that the user was interested in, based on viewing their Roommate Post. Has an owner, which is who's buffer it is, and a list of the interested profiles.
+    Important Functions/Methods: 
+        __str__ - Overrides the str method of class, so there is a string reprsentation of the class. Used by the Django ORM to identify the objects uniquely 
+
+            Input: self - Python's equivalent of this in JAVA 
+            Output: str - Return's string representation of the specific object 
+
+    Data Structures: 
+            interestedProfiles - it is a many to many field through Django's ORM  in the relational model but as the type hinting shows, it can be thought of as a list of Profile objects 
+            owner - represented as a FK based on the relational model for Django's ORM, but can be thought of as an aggregation 
+            
+    Algorithms: N/A       
+    """
+
+
     # should probably specify that this FK is also the PK of the interested buffer (DO THIS)
     owner = models.ForeignKey(Profile, on_delete=models.DO_NOTHING) # the owner of the buffer 
     interestedProfiles: list[Profile] = models.ManyToManyField(Profile, db_table="Interested_Roommates", related_name="interested_profiles") # this tells ORM to make a bridge entity for the interested profiles for the many to many relationship
@@ -52,6 +99,60 @@ class InterestedBuffer(models.Model):
 
 # filter class which will have the logic for the filtering
 class Filter:
+    """    
+    Class Name: Filter 
+    Date of Code: November 5, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Class which will contain the filters that will be used with the Roommate Post, which user's of the application can use to filter down to their specified liking.
+    Important Functions/Methods: 
+        budgetFilter - used to filter roommate posts based on the user's specified budget criteria
+            Input:
+                lowerBound - specifies the lower bound of the budget that the user wants to see
+                upperBound - specifies the upper bound of the budget that theh user wants to see 
+
+            Output:
+                QuerySet (Django version of a list of results, queries the DB directly which is better for performance, since DB is optimized) of the roommate posts which meet the criteria
+ 
+        moveInDateFilter - used to filter roommate posts based on the user's specified move in date criteria
+            Input:
+             lowerBound - specifies the earliest date they would want someone to move in
+                upperBound - specifies the latest date they would want someone to move in 
+
+            Output:
+                QuerySet (Django version of a list of results, queries the DB directly which is better for performance, since DB is optimized) of the roommate posts which meet the criteria
+ 
+        genderFilter - used to filter roommate posts based on the user's specified gender criteria 
+            Input:
+                gender - specifies the gender that the user wants to see roommate posts for 
+
+             Output:
+                QuerySet (Django version of a list of results, queries the DB directly which is better for performance, since DB is optimized) of the roommate posts which meet the criteria
+ 
+
+        nationalityFilter - used to filter roommate posts based on the user's specified nationality criteria
+            Input:
+                nationality - specifies the nationality that the user wants to see the roommate posts for
+
+            Output:
+                QuerySet (Django version of a list of results, queries the DB directly which is better for performance, since DB is optimized) of the roommate posts which meet the criteria
+
+
+        featuresFilter - used to filter roommate posts based on the user's specfied features (features are things such as smoker, vegan, etc)
+            Input: 
+                features - list of features which are sent in from the frontend, which the user wants to filter on
+
+            Output:
+                QuerySet (Django version of a list of results, queries the DB directly which is better for performance, since DB is optimized) of the roommate posts which meet the criteria
+    
+    Data Structures:
+        @staticmethod decorator is used, a Python built in decorator, which is used to show that the methods are bounded within the class' namespace not to any particular object instance 
+
+        QuerySet - Data structure provided by Django for query results from the DB 
+
+    Algorithms:
+        Basic filtering algorithms for each criteria 
+
+    """
     
     # filter on the budget specified on the post (NOT WORKING, FIGURE IT OUT)
     @staticmethod

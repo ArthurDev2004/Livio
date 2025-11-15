@@ -4,10 +4,31 @@ from gradeLevels.models import GradeLevel
 from users.models import User
 from nationalities.models import Nationality
 
-# Create your models here.
+"""
+Module Name: profiles.models
+Date of Code: October 17, 2025
+Programmer's Name: Arthur Lazaryan
+Description: It is the profile class for the user of the application. Has more detailed profile information on the user
+Important Functions: N/A
+Data Structures: N/A
+Algorithms: N/A
+"""
 
 # this is the model for the profile of the user 
 class Profile(models.Model):
+    """
+    Class Name: Profile 
+    Date of Code: October 17, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Is the profile class for the user of the application, and includes more detailed profile information on the user
+    Important Functions: 
+        __str__ - provides string representation of the object 
+
+    Data Structures:
+        Specific Django implementations are provided to match the neccesary constraints of the fields, so it works with the ORM in the relational model 
+    
+    Algorithms: N/A
+    """
     firstName: str = models.CharField(max_length=20)
     lastName: str = models.CharField (max_length=50)
     age: int = models.IntegerField()
@@ -20,4 +41,10 @@ class Profile(models.Model):
     #posts: list[Post] # will be a foriegn key relationship in post table 
 
     def __str__(self):
+        """
+        Function Name: __str__
+        Description: Provides string representation of the profile object, which is just the frist and last name
+        Input: None
+        Output: str - first and last name
+        """
         return f"{self.firstName} {self.lastName}"

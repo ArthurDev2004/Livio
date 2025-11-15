@@ -8,6 +8,14 @@ from nationalities.serializers import NationalitySerializer
 from gradeLevels.models import GradeLevel
 from gradeLevels.serializers import GradeLevelSerializer
 
+"""
+Module Name: profiles.serializers
+Date of Code: October 30, 2025 - November 10, 2025
+Programmer's Name: Arthur Lazaryan
+Description: Includes the different classes which are neccesary for serializing/deserializing the profile class
+"""
+
+
 # fix the create method for the serializer, see what is causing the issue of expected PK and etc 
 
 
@@ -56,6 +64,19 @@ from gradeLevels.serializers import GradeLevelSerializer
 
 # will be used to deserialize the JSON and to create the neccesary model 
 class ProfileCreationSerializer(ModelSerializer):
+    """
+    Class Name: ProfileCreationSerializer 
+    Date of Code: November 7, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Will be used to deserialize the JSON data recieved from the frontend, and make neccesary queries in db to get the proper information together to save the new profile 
+    Important Functions:
+        create
+
+        update 
+    Data Structures: 
+        SlugRelatedField - Django REST framework specific implementation for taking a slug (identifying string), can getting the matching object to it from the database
+    Algorithms: N/A
+    """
 
     # the slug related fields for the serializers take the string which was passed in, and make the deserialization take into accoutn the objects those strings are for and saves it like that 
     gender = serializers.SlugRelatedField(slug_field='name', queryset=Gender.objects.all()) # the query set is the set of models/objects which will be searched for a matching slug
@@ -70,6 +91,22 @@ class ProfileCreationSerializer(ModelSerializer):
 
     # used to create the profile object 
     def create(self, validated_data):
+        """
+        Function Name: create 
+        Date of Code: November 7, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Used to create a profile class, and to do it in a custom way with a passed in context 
+            Input:
+                validated_data - the data which is passed in from the frontend to the backend in the format of a dictionary
+
+            Output:
+                profile - returns an instance of the newly created profile 
+            
+        Important Functions: N/A
+        Data Structures:
+            context - additional information which is passed in as a Python dictionary to add to the object when instantiating and saving it 
+        Algorithms: N/A
+        """
         profile = Profile(**validated_data) # create teh profile with the validated data 
         profile.profile_user = self.context['request'] # adds the user to the profile 
 
@@ -80,6 +117,21 @@ class ProfileCreationSerializer(ModelSerializer):
 
     # will be used to update the profile object (needed for the update endpoint we have for the profile update)
     def update(self, instance, validated_data):
+        """
+        Function Name: update
+        Date of Code: November 7, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Used to update an instance of a profile class, when it is passed in to the serializer 
+            Input:
+                instance - instance of profile class which should be updated 
+
+                validated_data - the data which is passed in from the frontend to the backend in the format of a dictionary
+
+            Output:
+                instance - returns the instance with the newly updated values 
+        Important Functions: N/A
+        Data Structures: N/A
+        """
         
         updateValues = list(validated_data.keys()) # will create a list of the keys in the dictionary/JSON which was passed in
 
@@ -115,6 +167,18 @@ class ProfileCreationSerializer(ModelSerializer):
 
 # this will be the serializer used in GET requests to return the actual name of the gender, nationality, and etc, instead of the primary keys of those attributes
 class ProfileGetSerializer(ModelSerializer):
+    """
+    Class Name: ProfileGetSerializer
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Will serialize the profile object in a way which is appropriate for the process of the frontend requesting it 
+    Imporant Functions: N/A 
+    Data Structures: 
+        class Meta - specifies which model to serialize, and which fields in the model to serialize
+
+        StringRElatedField - Will serialize the object to its string representation by their overiden str functions 
+    Algorithms: N/A
+    """
     gender = serializers.StringRelatedField(many=False) # will serialize the objects to their str function return values 
     gradeLevel = serializers.StringRelatedField(many=False)
     nationality = serializers.StringRelatedField(many=False)
@@ -126,6 +190,16 @@ class ProfileGetSerializer(ModelSerializer):
 
 # will be used to only serialize the id from the Profile, which is all that will be needed for sending it back to the frontend in pagination
 class ProfilePaginationSerializer(ModelSerializer):
+    """
+    Class Name: ProfilePaginationSerializer 
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Will serialize the profile to its id for the purposes of being used in pagination
+    Important Functions: N/A
+    Data Structures: 
+        class Meta - specifies which model to serialize, and which fields in the model to serialize
+    Algorithms: N/A
+    """
 
     class Meta:
         model = Profile

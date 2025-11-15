@@ -8,6 +8,30 @@ from .serializers import RoommatePostGetSerializer, InterestedBufferGetSerialize
 from rest_framework.response import Response
 from profiles.models import Profile
 
+"""
+Module Name: roommates.views
+Date of Code: October 17, 2025 - November 11, 2025
+Programmer's Name: Arthur Lazaryan
+Description: Includes all of the methods which will handle the endpoints which are accessed from the frontend. They follow the REST design principles, and require authentiction in order to be accessed
+Important Functions:
+    currentUserRoommatePost
+
+    createRoommatePost
+
+    editRoommatePost
+
+    interestedRoommates
+
+    addInterestedRoommate
+
+    pagination
+
+Data Structures:
+    @api_view - decorator provided by Django REST framework, which specifies the type of HTTP method which should be used
+    @permission_classes - decorator provided by Django REST framework, which specifies who has permission to the method via the endpoint
+"""
+
+
 
 # Create your views here.
 
@@ -27,6 +51,20 @@ def personalGreeting(request, name):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def currentUserRoommatePost(request):
+    """
+    Function Name: currentUserRoommatePost
+    Date of Code: October 30, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Returns the current logged in user's roommate post; current user is identified using their JWT token and their user id implemented within it
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+    Output:
+        Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code 
+    """
+
+
     # from the user get the profile, then from the profile query for the 
     
     user_profile = request.user.profile # assigns the profile of the user to the variable 
@@ -42,6 +80,21 @@ def currentUserRoommatePost(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createRoommatePost(request):
+    """
+    Function Name: createRoommatePost
+    Date of Code: October 30, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Creates the roommate post for the current user 
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+    Output:
+        Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code 201 for created 
+    """
+
+
+
     # will get the profile from the user which is passed from the JWT auth
     # will need to receive funfact 
     # will need to receive the budget 
@@ -73,6 +126,19 @@ def createRoommatePost(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def editRoommatePost(request):
+    """
+    Function Name: editRoommatePost
+    Date of Code: November 6, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Returns the edited version of the roommate post for the current logged in user
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+    Output:
+        Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code 
+    """
+
     
     # get the current roommate post for the current user
     current_profile = request.user.profile
@@ -94,6 +160,19 @@ def editRoommatePost(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def interestedRoommates(request):
+    """
+    Function Name: interestedRoommates
+    Date of Code: November 6, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Returns the "buffer"/list of roommates that this user has shown interest in trhough clicking save on the fronted; This list is kept in the backend for usage
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+    Output:
+        Response - essentialy the serialized version of the interested roommates buffer for the current user, and the accompanying HTTP status code 
+    """
+
     
     user_profile = request.user.profile # gets the profile of the user making the request to the variable 
 
@@ -109,6 +188,19 @@ def interestedRoommates(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def addInterestedRoommate(request):
+    """
+    Function Name: addInterestedRoommate
+    Date of Code: November 8, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Adds the newly indicated roommate to the current user's interested roommate buffer
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+    Output:
+        Response - essentialy the serialized version of the interested roommates buffer for the current user with the addition, and the accompanying HTTP status code 
+    """
+
     # will pass the profile id of the roommate they are interested in
     # then this will add that profile to the list of profiles they are interested in
     # will send some info to the frontend, when querying the list
@@ -137,6 +229,21 @@ def addInterestedRoommate(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def pagination(request):
+    """
+    Function Name: pagination
+    Date of Code: November 7, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Uses a cursor based pagination approach to return the roommate posts to the frontend using pagination, so it is not all sent at once and to allow for an inifinite scroll affect on the frotnend with asynchrnous calls being made to this API.
+                 New cursor is sent everytime to the backend, and builds on the previous cursor with the limit
+
+    Input:
+        request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+            query_params: passses in the query parameters from the GET request, which includes the cursor and the limit of the number of roommateposts to return back
+
+    Output:
+        Response - essentialy the serialized version of the many roommate posts which are sent to the frontend, and the accompanying HTTP status code
+    """
+
     # cursor and the limit, will be passed in as query parameters 
 
     query_params = request.query_params # assign the query paramaters from the url, to the dictionary so it can be used to determine if it is the intial pagination request or non-initial 

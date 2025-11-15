@@ -5,8 +5,30 @@ from features.serializers import FeatureSerializer
 from profiles.serializers import ProfileGetSerializer, ProfilePaginationSerializer
 from features.models import Feature
 
+
+"""
+Module Name: roommates.serializers 
+Date of Code: October 24, 2025 - November 10, 2025
+Programmer's Name: Arthur Lazaryan
+Description: Contains classes which will serialize and deserialize data for the RoommatePost when sending from backend to frontend, and vice versa in receiveing. 
+Important Functions: N/A
+Data Structures: N/A
+Algorithms: N/A
+"""
+
+
 # serializer which will be used for GET requests for roommate posts (will be for the responses to get the GET requests)
 class RoommatePostGetSerializer(ModelSerializer):
+    """
+    Class Name: RoommatePostGetSerializer
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Class to serialize the RoommatePost when it is being sent to the frontend, in a format so it can be converted into JSON
+    Important Functions: N/A
+    Data Structures: 
+        class Meta - Provides information on what model that this serializer is going to work on, and which fields to serialize
+    Algorithms: N/A
+    """
 
     # these serializers are for the nested serialization, so that instead of returning PK, it returns the actual objects, will be easier to handle on the front end
     features = FeatureSerializer(many=True) # this works with many being True, will also include the link to the icon images for each feature type
@@ -21,6 +43,35 @@ class RoommatePostGetSerializer(ModelSerializer):
 
 # will be used to deserialize whenever getting data from a post request 
 class RoommateCreationSerializer(ModelSerializer):
+    """
+    Class Name: RoommateCreationSerializer
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Class to deserialiaze the JSON data from the frontend for the RoommatePost and to make it into a format that works for the backend. 
+    Important Functions:
+        create - used by the serializer to create an instance of the roommate post from the incoming data 
+
+            Input: 
+                validated_data - dictionary (map) of the data which was passed in to the serializer after the types have been validated
+            Output:
+                RoommatePost - returns an instance of a RoommatePost object, after it has been saved 
+
+        update - used by serializer whenever an instance is passed in to its constructor, and signifies that it should update an existing RoommatePost rather than create a new one
+
+            Input: 
+                instance - it is an instance of the RoommatePost object where the updated fields should be put on to
+
+                validated_data - dictionary (map) of the data which was passed in to the serializer after the types have been validated
+
+    Data Structures: 
+
+        features - it is a SlugRelatedField, which is a Django REST framework specific implementation, which allows for the frontend to send a name of an object, and with this name it will query to matching object in the backend and add the actual object to the relationship
+                    (aggregation relationship)    
+
+        context - additional context which is passed into the serializer so it can be used in serialization/deserialization process
+
+    Algorithms: N/A
+    """
 
     # may be something wrong with this 
     features = serializers.SlugRelatedField(slug_field='name', queryset=Feature.objects.all(), many=True) # many signifies that it is used in a many to many relationship
@@ -33,6 +84,19 @@ class RoommateCreationSerializer(ModelSerializer):
 
     # override the create method to add the profile when the roommate post is being made
     def create(self, validated_data):
+        """
+        Method Name: create
+        Date of Code: November 2, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Used to create a new instance of a Roommate Post from the passed in data, which was deserialized 
+
+            Input: 
+                validated_data - dictionary (map) of the data which was passed in to the serializer after the types have been validated
+            Output:
+                RoommatePost - returns an instance of a RoommatePost object, after it has been saved 
+        """
+
+
         post = RoommatePost()
 
         post.title = validated_data['title']
@@ -52,6 +116,20 @@ class RoommateCreationSerializer(ModelSerializer):
     
     # used whenever updating the roommate post
     def update(self, instance, validated_data):
+
+        """
+        Method Name: update
+        Date of Code: November 2, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Used to update an instance of a Roommate Post from the passed in data, which was deserialized 
+
+            Input: 
+                instance - it is an instance of the RoommatePost object where the updated fields should be put on to
+
+                validated_data - dictionary (map) of the data which was passed in to the serializer after the types have been validated
+            Output:
+                RoommatePost - returns an instance of a RoommatePost object, after it has been saved 
+        """
         
         updateValues = list(validated_data.keys())
 
@@ -78,6 +156,16 @@ class RoommateCreationSerializer(ModelSerializer):
 
 # this is the serializer which will be used for GET requests to get the interested buffer of that specific profile (will be for responses to get the GET requests)
 class InterestedBufferGetSerializer(ModelSerializer):
+    """
+    Class Name: InterestedBufferGetSerializer
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Will serialize the InterestedBuffer, so when being sent to the frontend it is an appropriate reprsentation
+    Important Fucnctions: N/A
+    Data Structures:
+        interestedProfiles - ProfileGetSerializer which is used to serialize the profiles in a way that is accepatbale to be put into JSON format rather than just thier id which is default 
+    Algoritms: N/A
+    """
 
     interestedProfiles = ProfileGetSerializer(many=True) # many is assigned true since there may be many profiles which are in the interested profiles
 
@@ -93,6 +181,17 @@ class InterestedBufferAddSerializer(ModelSerializer):
 
 # will be used in serializing for the pagination responses
 class RoommatePaginationSerializer(ModelSerializer):
+    """
+    Class Name: RoommatePaginationSerializer
+    Date of Code: November 2, 2025
+    Programmer's Name: Arthur Lazaryan
+    Description: Will serialize the RoommatePost in a way so that it is appropriate to display on the frontend with needed criteria
+    Important Functions: N/A
+    Data Structures: 
+        features - will serialize the field in an appropriate manner
+        profile - will serialize the profile field, for the purposes of being used in the cursor based pagination api
+    Algorithms: N/A
+    """
     
     features = FeatureSerializer(many=True) # will serialize the features 
     profile = ProfilePaginationSerializer(many=False) # will serialize to only get id of the profile of the current user
