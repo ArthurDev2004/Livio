@@ -1,0 +1,5 @@
+[
+  { "model": "market.category", "pk": 1, "fields": { "name": "General", "slug": "general" } },
+  { "model": "market.product", "pk": 1, "fields": { "title": "Blue Mug", "slug": "blue-mug", "description": "Ceramic", "category": 1 } },
+  { "model": "market.product", "pk": 2, "fields": { "title": "Green Bowl", "slug": "green-bowl", "description": "Porcelain", "category": 1 } }
+]
