@@ -1,3 +1,5 @@
+// edited by Andrew Ponce on 6/6/2024
+
 {% extends "base_home.html" %}
 {% load static %}
 {% block content %}
@@ -10,7 +12,7 @@
 				center: {lat: 34.2348, lng: -118.5319} // Northridge location
 			}
 
-			// new map 
+			// Initialize the map with the specified options
 			var map = new
 			google.maps.Map(document.getElementById('map'), options);
 
@@ -18,19 +20,15 @@
 			var dynamicMarkers = [];
 			var allMarkers = [];
 
-			// listen for click on map
+			// Add a click event listener to the map to allow dynamic marker creation
 			google.maps.event.addListener(map, 'click', 
 			function(event){
-				// add marker
+				// Add a new marker at the clicked location
 				var newMarker = addMarker({coords: event.latLng});
 				dynamicMarkers.push(newMarker);
 			});
 
-			// multiple markers
-			// every university in california state university system
-			//create a markers array ; create a db in the future to save the data and fetch from there, labling it wih the right address and coordinates
-			//
-
+			// Array of predefined markers for universities in California
 			var markers = [
 				{coords: {lat: 34.2381, lng: -118.5285}, IconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',content: '<h4>CSUN</h4>'}, // CSUN
 				{coords: {lat: 33.7838, lng: -118.1141}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', content: '<h4>Cal State Long Beach</h4>'}, // Cal State Long Beach
@@ -48,30 +46,31 @@
 				{coords: {lat: 32.7767, lng: -117.0711}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/ltblue-dot.png', content: '<h4>San Diego State</h4>'}, // San Diego State
 			];
 			
-			//add through markers array
+			// Loop through the markers array and add each marker to the map
 			for(var i = 0 ; i < markers.length; i++){
-				//add marker
+				// Add marker
 				addMarker(markers[i]);
 			}
 
-			// dynamic marker 
+			// Function to add a marker to the map
 			function addMarker(props){
 				var marker = new google.maps.Marker({
 					position: props.coords,
 					map: map
 				});
 				
-				//check for custom icon
+				// Check if the marker has a custom icon and set it
 				if (props.IconImage){
 					marker.setIcon(props.IconImage);
 				}
 				
-				//check for content
+				// Check if the marker has content for an info window
 				if (props.content){
 					var infoWindow = new google.maps.InfoWindow({
 						content: props.content
 					});
 
+					// Add a click event listener to open the info window when the marker is clicked
 					marker.addListener('click', function(){
 						infoWindow.open(map, marker);
 					});
