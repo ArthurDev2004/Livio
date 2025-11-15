@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 def home(request):
     return render(request, "home_page.html")
@@ -28,12 +30,17 @@ def signup(request):
     return render(request, "signup_page.html")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
-    path('', include("roommates.urls")),
-    path('features/', include('features.urls'))
+    path('users/', include('users.urls')),
+    path('profiles/', include('profiles.urls')),
+    path('roommates/', include('roommates.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name="jwt"),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name="jwt_refresh"),
+     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
 
 # added all of the urls from the roommates app urls.py to the main one, so it is able to go to the proper place

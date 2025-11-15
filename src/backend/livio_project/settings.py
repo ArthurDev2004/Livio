@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv, find_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,19 +29,37 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'users.User' # this tells Django which model to use for auth
+
+# Auth0 Settings and configuration 
+SOCIAL_AUTH_TRAILING_SLASH = False
+SOCIAL_AUTH_AUTH0_DOMAIN = 'dev-00klojnxoq7j1jez.us.auth0.com'
+SOCIAL_AUTH_AUTH0_ID = '2qEJZtBZLP2EZUnEI3DXOkLm6Ug0LF8P'
+SOCIAL_AUTH_AUTH0_SECRET = 'q7caIHLFu7hN55yzwF5YEODujrOD5CUtX0o4kH1JiQoQJSkKeb6x1AoVPlDrgpSz'
+SOCIAL_AUTH_AUTH0_SCOPE = ['openid', 'profile', 'email']
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'profiles',
+    'posts',
+    'users',
+    'gradeLevels',
+    'genders',
     'roommates',
     'features',
+    'posttype',
+    'nationalities',
     'rest_framework',
+    'social_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_spectacular'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +143,19 @@ STATICFILES_DIRS = [BASE_DIR.parent / 'frontend' / 'static']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Livio',
+    'DESCRIPTION': 'All in one platform for students to find housing, roommates, and engage in local commerce!',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
