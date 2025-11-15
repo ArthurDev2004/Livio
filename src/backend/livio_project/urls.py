@@ -31,12 +31,16 @@ def signup(request):
 def apartment (request):
     return render(request, "apartment_page.html")
 
+def apartment_map (request):
+    return render(request, "aprt_map_api.html")
+
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('signup/', signup, name='signup'),
     path('apartments/', apartment, name='apartment'),
+    path('apartment_map/',apartment_map, name='apartment_map'),
     path('users/', include('users.urls')),
     path('profiles/', include('profiles.urls')),
     path('roommates/', include('roommates.urls')),

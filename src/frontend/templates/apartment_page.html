@@ -458,12 +458,34 @@
                 </div>
             </div>
         </main>
-        
-        <!-- Fixed Map Sidebar -->
-        <aside class="map" id="map">
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80" alt="Map of LA" />
+
+        <!-- Right Sidebar with Map -->
+        <aside class="map">
+            <div id="map" style="width:100%;height:100%;"></div>
         </aside>
-    </div>
+
+        <script>
+            function initMap() {
+                // Initialize the map
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    center: { lat: 34.0522, lng: -118.2437 }, // Default center (Los Angeles)
+                    zoom: 12,
+                });
+
+                // Example marker
+                const marker = new google.maps.Marker({
+                    position: { lat: 34.0522, lng: -118.2437 },
+                    map: map,
+                    title: "Default Location",
+                });
+
+                // Add more markers or functionality as needed
+            }
+        </script>
+
+        <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAczJVb_-U_XpOXDMlE1nODMDv91Qn2vXU&callback=initMap">
+        </script>
 
     <!-- Popup for user profile -->
     <div class="popup" id="userPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
