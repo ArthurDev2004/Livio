@@ -1,77 +1,102 @@
-//Edited by Andrew Ponce on 6/6/2024
+// Edited by Andrew Ponce on 6/6/2024
 
 // Image Gallery Navigation
 document.querySelectorAll('.image-gallery').forEach(gallery => {
-    const images = gallery.querySelectorAll('.apartment-image'); // Connects to elements with class 'apartment-image'
-    const dots = gallery.querySelectorAll('.dot'); // Connects to elements with class 'dot'
+    /**
+     * Handles image gallery navigation.
+     * - Clicking on the gallery cycles through images.
+     * - Clicking on dots navigates directly to the corresponding image.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
+    const images = gallery.querySelectorAll('.apartment-image');
+    const dots = gallery.querySelectorAll('.dot');
     let currentIndex = 0;
 
-    // Click on gallery to go to next image
     gallery.addEventListener('click', (e) => {
-        if (e.target.classList.contains('dot')) return; // Skip if clicking dot
+        /**
+         * Cycles to the next image when the gallery is clicked.
+         * Skips if a dot is clicked.
+         * Edited by Andrew Ponce on 6/6/2024
+         */
+        if (e.target.classList.contains('dot')) return;
         e.stopPropagation();
         
-        images[currentIndex].classList.remove('active'); // Toggles 'active' class
-        dots[currentIndex].classList.remove('active'); // Toggles 'active' class
+        images[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
         
         currentIndex = (currentIndex + 1) % images.length;
         
-        images[currentIndex].classList.add('active'); // Toggles 'active' class
-        dots[currentIndex].classList.add('active'); // Toggles 'active' class
+        images[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
     });
 
-    // Click on dots for direct navigation
     dots.forEach((dot, index) => {
+        /**
+         * Navigates directly to the selected image when a dot is clicked.
+         * Edited by Andrew Ponce on 6/6/2024
+         */
         dot.addEventListener('click', (e) => {
             e.stopPropagation();
             
-            images[currentIndex].classList.remove('active'); // Toggles 'active' class
-            dots[currentIndex].classList.remove('active'); // Toggles 'active' class
+            images[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
             
             currentIndex = index;
             
-            images[currentIndex].classList.add('active'); // Toggles 'active' class
-            dots[currentIndex].classList.add('active'); // Toggles 'active' class
+            images[currentIndex].classList.add('active');
+            dots[currentIndex].classList.add('active');
         });
     });
 });
 
 // Flip card on click (except when clicking images, username, pic, or button)
 document.querySelectorAll('.card').forEach(card => {
+    /**
+     * Toggles the "flipped" class on a card when clicked.
+     * Skips flipping if the click is on an image, username, user picture, or button.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
     card.addEventListener('click', (e) => {
-        // Don't flip if clicking on image gallery, username, profile pic, or button
-        if (e.target.closest('.image-gallery') || // Connects to '.image-gallery'
-            e.target.closest('.username') || // Connects to '.username'
-            e.target.closest('.user-pic') || // Connects to '.user-pic'
-            e.target.closest('.choose-button')) { // Connects to '.choose-button'
+        if (e.target.closest('.image-gallery') || 
+            e.target.closest('.username') || 
+            e.target.closest('.user-pic') || 
+            e.target.closest('.choose-button')) {
             return;
         }
-        card.classList.toggle('flipped'); // Toggles 'flipped' class
+        card.classList.toggle('flipped');
     });
 });
 
 // Filter Accordion
 document.querySelectorAll('.filter-header').forEach(header => {
+    /**
+     * Toggles the "collapsed" class on a filter section when its header is clicked.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
     header.addEventListener('click', () => {
-        const section = header.parentElement; // Connects to parent element of '.filter-header'
-        section.classList.toggle('collapsed'); // Toggles 'collapsed' class
+        const section = header.parentElement;
+        section.classList.toggle('collapsed');
     });
 });
 
 // Popup elements
-const popup = document.getElementById('userPopup'); // Connects to element with ID 'userPopup'
-const popupContent = popup.querySelector('.popup-content'); // Connects to '.popup-content' inside popup
-const popupCloseBtn = popup.querySelector('.popup-close'); // Connects to '.popup-close' inside popup
+const popup = document.getElementById('userPopup');
+const popupContent = popup.querySelector('.popup-content');
+const popupCloseBtn = popup.querySelector('.popup-close');
 
 // Open user popup
-document.querySelectorAll('.username, .user-pic').forEach(el => { // Connects to '.username' and '.user-pic'
+document.querySelectorAll('.username, .user-pic').forEach(el => {
+    /**
+     * Opens the user popup with details when a username or user picture is clicked.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
     el.addEventListener('click', e => {
         e.stopPropagation();
-        const card = el.closest('.card'); // Connects to closest '.card'
+        const card = el.closest('.card');
         if (!card) return;
 
-        const userName = card.querySelector('.username').textContent; // Connects to '.username' inside '.card'
-        const bioElement = card.querySelector('.apartment-details p:nth-last-child(1)'); // Connects to last paragraph in '.apartment-details'
+        const userName = card.querySelector('.username').textContent;
+        const bioElement = card.querySelector('.apartment-details p:nth-last-child(1)');
         const bio = bioElement ? bioElement.textContent.replace('Bio:', '').trim() : 'No bio available';
 
         popupContent.innerHTML = `
@@ -82,25 +107,38 @@ document.querySelectorAll('.username, .user-pic').forEach(el => { // Connects to
             <p><strong>Response Rate:</strong> 95%</p>
             <p><strong>Verified:</strong> Yes ✓</p>
         `;
-        popup.classList.add('active'); // Toggles 'active' class
+        popup.classList.add('active');
     });
 });
 
 // Close popup
 popupCloseBtn.addEventListener('click', () => {
-    popup.classList.remove('active'); // Toggles 'active' class
+    /**
+     * Closes the user popup when the close button is clicked.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
+    popup.classList.remove('active');
 });
 
 popup.addEventListener('click', e => {
+    /**
+     * Closes the user popup when clicking outside the popup content.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
     if (e.target === popup) {
-        popup.classList.remove('active'); // Toggles 'active' class
+        popup.classList.remove('active');
     }
 });
 
 // Choose button
-document.querySelectorAll('.choose-button').forEach(button => { // Connects to '.choose-button'
+document.querySelectorAll('.choose-button').forEach(button => {
+    /**
+     * Handles the "Choose" button click event.
+     * Displays an alert and navigates to the listing details page.
+     * Edited by Andrew Ponce on 6/6/2024
+     */
     button.addEventListener('click', e => {
         e.stopPropagation();
-        alert('Navigating to listing details page...'); // Placeholder for navigation logic
+        alert('Navigating to listing details page...');
     });
 });
