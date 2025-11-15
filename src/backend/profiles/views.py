@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ProfileGetSerializer, ProfileCreationSerializer
 from .models import Profile
-from .conversions import convert, convert2
+from .conversions import convert
 
 """
 Module Name: profiles.views 

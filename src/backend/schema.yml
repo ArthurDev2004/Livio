@@ -1,0 +1,356 @@
+openapi: 3.0.3
+info:
+  title: Livio
+  version: 1.0.0
+  description: All in one platform for students to find housing, roommates, and engage
+    in local commerce!
+paths:
+  /api/token/:
+    post:
+      operationId: api_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: api_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /profiles/all:
+    get:
+      operationId: profiles_all_retrieve
+      description: |-
+        Function Name: getProfile
+        Date of Code: October 17, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Gets all of the profiles available in the backend, serializes, and sends it to the frontend
+
+            Input:
+               request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+            Output:
+                Response - Django REST framework implementation, which returns the profiles and the proper HTTP status code
+        Data Structures: N/A
+        Algorithms: N/A
+      tags:
+      - profiles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /profiles/current:
+    get:
+      operationId: profiles_current_retrieve
+      description: |-
+        Function Name: getCurrentUserProfile
+        Date of Code: October 22, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Get the profile of the current user who is logged in
+
+            Input:
+                request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+            Output:
+                Response - Django REST framework specific, which will return the current user's profile and the appropriate status code
+        Data Structures: N/A
+        Algorithms: N/A
+      tags:
+      - profiles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /profiles/profile:
+    post:
+      operationId: profiles_profile_create
+      description: |-
+        Function Name: createProfile
+        Date of Code: November 7, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Will create the profile for the current user making the request, and will save it to the database
+            Input:
+                request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+            Output:
+                Response - Django REST framework specific, which will return the current user's newly created profile and the appropriate status code
+        Important Functions: N/A
+        Data Structures: N/A
+        Algorithms: N/A
+      tags:
+      - profiles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /profiles/update:
+    put:
+      operationId: profiles_update_update
+      description: |-
+        Function Name: editProfile
+        Date of Code: November 10, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Will edit/update the profile with the new information passed in from the frontend. Uses the HTTP PUT method to indicate this is the case, just to follow best designs
+            Input:
+                request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+            Output:
+                Response - Django REST framework specific, which will return the current user's newly created profile and the appropriate status code
+        Important Functions: N/A
+        Data Structures: N/A
+        Algorithms: N/A
+      tags:
+      - profiles
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/:
+    get:
+      operationId: roommates_retrieve
+      description: |-
+        Function Name: pagination
+        Date of Code: November 7, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Uses a cursor based pagination approach to return the roommate posts to the frontend using pagination, so it is not all sent at once and to allow for an inifinite scroll affect on the frotnend with asynchrnous calls being made to this API.
+                     New cursor is sent everytime to the backend, and builds on the previous cursor with the limit
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+                query_params: passses in the query parameters from the GET request, which includes the cursor and the limit of the number of roommateposts to return back
+
+        Output:
+            Response - essentialy the serialized version of the many roommate posts which are sent to the frontend, and the accompanying HTTP status code
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/create/:
+    post:
+      operationId: roommates_create_create
+      description: |-
+        Function Name: createRoommatePost
+        Date of Code: October 30, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Creates the roommate post for the current user
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+        Output:
+            Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code 201 for created
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/current:
+    get:
+      operationId: roommates_current_retrieve
+      description: |-
+        Function Name: currentUserRoommatePost
+        Date of Code: October 30, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Returns the current logged in user's roommate post; current user is identified using their JWT token and their user id implemented within it
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+        Output:
+            Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/current/interested:
+    get:
+      operationId: roommates_current_interested_retrieve
+      description: |-
+        Function Name: interestedRoommates
+        Date of Code: November 6, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Returns the "buffer"/list of roommates that this user has shown interest in trhough clicking save on the fronted; This list is kept in the backend for usage
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+        Output:
+            Response - essentialy the serialized version of the interested roommates buffer for the current user, and the accompanying HTTP status code
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/current/interested/add:
+    post:
+      operationId: roommates_current_interested_add_create
+      description: |-
+        Function Name: addInterestedRoommate
+        Date of Code: November 8, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Adds the newly indicated roommate to the current user's interested roommate buffer
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+        Output:
+            Response - essentialy the serialized version of the interested roommates buffer for the current user with the addition, and the accompanying HTTP status code
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /roommates/update/:
+    put:
+      operationId: roommates_update_update
+      description: |-
+        Function Name: editRoommatePost
+        Date of Code: November 6, 2025
+        Programmer's Name: Arthur Lazaryan
+        Description: Returns the edited version of the roommate post for the current logged in user
+
+        Input:
+            request - Django REST framework object which has all of the data that is sent in the request from the frontend to the backend
+
+        Output:
+            Response - essentialy the serialized version of the Roommate Post for the current user, and the accompanying HTTP status code
+      tags:
+      - roommates
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+  /users/all:
+    get:
+      operationId: users_all_retrieve
+      description: |-
+        Function Name: getUser
+        Date of Code: October 30, 2025
+        Description: Returns the current user which is logged in
+            Input:
+                request - Django REST framework specific implementation which has all the data from the HTTP request header and body, which includes the JWT token used to identify the user
+            Output:
+                None
+        Data Structures: N/A
+        Algorithms: N/A
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
