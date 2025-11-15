@@ -1,0 +1,87 @@
+<!-- edited by Andrew Ponce on 6/6/2024 -->
+
+{% extends "base_home.html" %}
+{% load static %}
+{% block content %}
+
+	<div id="map" style="height: 500px; width: 100%;"></div>
+	<script>
+		function initMap() {
+			var options = {
+				zoom: 13,
+				center: {lat: 34.2348, lng: -118.5319} // Northridge location
+			}
+
+			// Initialize the map with the specified options
+			var map = new
+			google.maps.Map(document.getElementById('map'), options);
+
+			// Array to store dynamically added markers
+			var dynamicMarkers = [];
+			var allMarkers = [];
+
+			// Add a click event listener to the map to allow dynamic marker creation
+			google.maps.event.addListener(map, 'click', 
+			function(event){
+				// Add a new marker at the clicked location
+				var newMarker = addMarker({coords: event.latLng});
+				dynamicMarkers.push(newMarker);
+			});
+
+			// Array of predefined markers for universities in California
+			var markers = [
+				{coords: {lat: 34.2381, lng: -118.5285}, IconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',content: '<h4>CSUN</h4>'}, // CSUN
+				{coords: {lat: 33.7838, lng: -118.1141}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', content: '<h4>Cal State Long Beach</h4>'}, // Cal State Long Beach
+				{coords: {lat: 34.0689, lng: -118.4452}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png', content: '<h4>UCLA</h4>'}, // UCLA
+				{coords: {lat: 34.0224, lng: -118.2851}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', content: '<h4>USC</h4>'}, // USC
+				{coords: {lat: 32.8801, lng: -117.2340}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png', content: '<h4>UC San Diego</h4>'}, // UC San Diego
+				{coords: {lat: 37.8719, lng: -122.2585}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png', content: '<h4>UC Berkeley</h4>'}, // UC Berkeley
+				{coords: {lat: 37.4275, lng: -122.1697}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/pink-dot.png', content: '<h4>Stanford University</h4>'}, // Stanford
+				{coords: {lat: 36.9741, lng: -122.0308}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/lightblue-dot.png', content: '<h4>UC Santa Cruz</h4>'}, // UC Santa Cruz
+				{coords: {lat: 34.4140, lng: -119.8489}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/brown-dot.png', content: '<h4>UC Santa Barbara</h4>'}, // UC Santa Barbara
+				{coords: {lat: 38.5382, lng: -121.7617}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/darkgreen-dot.png', content: '<h4>UC Davis</h4>'}, // UC Davis
+				{coords: {lat: 37.3688, lng: -120.4259}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/darkblue-dot.png', content: '<h4>UC Merced</h4>'}, // UC Merced
+				{coords: {lat: 33.6405, lng: -117.8443}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/darkred-dot.png', content: '<h4>UC Irvine</h4>'}, // UC Irvine
+				{coords: {lat: 33.9533, lng: -117.3962}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/white-dot.png', content: '<h4>UC Riverside</h4>'}, // UC Riverside
+				{coords: {lat: 32.7767, lng: -117.0711}, IconImage: 'https://maps.google.com/mapfiles/ms/icons/ltblue-dot.png', content: '<h4>San Diego State</h4>'}, // San Diego State
+			];
+			
+			// Loop through the markers array and add each marker to the map
+			for(var i = 0 ; i < markers.length; i++){
+				// Add marker
+				addMarker(markers[i]);
+			}
+
+			// Function to add a marker to the map
+			function addMarker(props){
+				var marker = new google.maps.Marker({
+					position: props.coords,
+					map: map
+				});
+				
+				// Check if the marker has a custom icon and set it
+				if (props.IconImage){
+					marker.setIcon(props.IconImage);
+				}
+				
+				// Check if the marker has content for an info window
+				if (props.content){
+					var infoWindow = new google.maps.InfoWindow({
+						content: props.content
+					});
+
+					// Add a click event listener to open the info window when the marker is clicked
+					marker.addListener('click', function(){
+						infoWindow.open(map, marker);
+					});
+				}
+			}
+
+		}
+	</script>
+
+	<script async
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAczJVb_-U_XpOXDMlE1nODMDv91Qn2vXU&callback=initMap">
+	</script>
+
+{% endblock %}

@@ -1,5 +1,16 @@
+<<<<<<< HEAD
 
 
+=======
+/* edited by Andrew Ponce on 6/6/2024 */
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+/* Page Wrapper */
+>>>>>>> apartments
 .page-wrapper {
     display: flex;
     height: 100vh;
@@ -8,7 +19,11 @@
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 /* Fixed Filter Sidebar - Left - Responsive Width */
+=======
+/* Filter Sidebar (Left) */
+>>>>>>> apartments
 .filter {
     width: 18vw;
     min-width: 200px;
@@ -28,6 +43,10 @@
     display: none;
 }
 
+<<<<<<< HEAD
+=======
+/* Filter Header */
+>>>>>>> apartments
 .filter h3 {
     margin: 0 0 25px 0;
     font-size: clamp(1.1em, 1.5vw, 1.4em);
@@ -37,6 +56,10 @@
     border-bottom: 3px solid #2980b9;
 }
 
+<<<<<<< HEAD
+=======
+/* Filter Sections */
+>>>>>>> apartments
 .filter-section {
     margin-bottom: 12px;
 }
@@ -68,6 +91,10 @@
     transform: rotate(-90deg);
 }
 
+<<<<<<< HEAD
+=======
+/* Filter Content */
+>>>>>>> apartments
 .filter-content {
     max-height: 400px;
     overflow: hidden;
@@ -82,6 +109,10 @@
     padding: 0 5px;
 }
 
+<<<<<<< HEAD
+=======
+/* Filter Labels */
+>>>>>>> apartments
 .filter label {
     display: block;
     margin: 6px 0;
@@ -104,7 +135,11 @@
     height: 14px;
 }
 
+<<<<<<< HEAD
 /* Scrollable Center Content - Responsive */
+=======
+/* Listings Section (Center) */
+>>>>>>> apartments
 .listings {
     flex: 1;
     margin-left: clamp(200px, 18vw, 280px);
@@ -115,7 +150,11 @@
     padding: clamp(15px, 2.5vh, 25px) clamp(10px, 2vw, 25px);
 }
 
+<<<<<<< HEAD
 /* Card Styles - Fully Responsive */
+=======
+/* Card Styles */
+>>>>>>> apartments
 .card-wrapper {
     perspective: 2000px;
     margin-bottom: clamp(20px, 3vh, 30px);
@@ -143,6 +182,10 @@
     transform: rotateY(180deg);
 }
 
+<<<<<<< HEAD
+=======
+/* Card Front and Back */
+>>>>>>> apartments
 .card-front, .card-back {
     width: 100%;
     backface-visibility: hidden;
@@ -155,7 +198,11 @@
     background: white;
 }
 
+<<<<<<< HEAD
 /* Image Gallery - Responsive with Contain Fit */
+=======
+/* Image Gallery */
+>>>>>>> apartments
 .image-gallery {
     width: clamp(280px, 35%, 450px);
     min-height: clamp(280px, 35vh, 350px);
@@ -185,6 +232,10 @@
     opacity: 1;
 }
 
+<<<<<<< HEAD
+=======
+/* Image Dots */
+>>>>>>> apartments
 .image-dots {
     position: absolute;
     bottom: 15px;
@@ -214,7 +265,11 @@
     background: rgba(255,255,255,0.8);
 }
 
+<<<<<<< HEAD
 /* Details Section - Responsive */
+=======
+/* Details Section */
+>>>>>>> apartments
 .details {
     flex: 1;
     padding: clamp(15px, 2.5vh, 25px);
@@ -224,6 +279,10 @@
     overflow-y: auto;
 }
 
+<<<<<<< HEAD
+=======
+/* User Info */
+>>>>>>> apartments
 .user-info {
     display: flex;
     align-items: center;
@@ -261,6 +320,10 @@
     color: #2980b9;
 }
 
+<<<<<<< HEAD
+=======
+/* Apartment Details */
+>>>>>>> apartments
 .apartment-details {
     flex-grow: 1;
     font-size: clamp(0.9em, 1.1vw, 1.05em);
@@ -282,6 +345,10 @@
     font-weight: bold;
 }
 
+<<<<<<< HEAD
+=======
+/* Choose Button */
+>>>>>>> apartments
 .choose-button {
     background-color: #2980b9;
     color: white;
@@ -303,7 +370,11 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+<<<<<<< HEAD
 /* Card Back - Responsive */
+=======
+/* Card Back */
+>>>>>>> apartments
 .card-back {
     position: absolute;
     top: 0;
@@ -326,6 +397,10 @@
     padding-bottom: 10px;
 }
 
+<<<<<<< HEAD
+=======
+/* Back Content */
+>>>>>>> apartments
 .back-content {
     display: flex;
     flex-direction: column;
@@ -374,7 +449,11 @@
     font-size: clamp(0.85em, 1vw, 0.95em);
 }
 
+<<<<<<< HEAD
 /* Fixed Map Sidebar - Right - Responsive Width */
+=======
+/* Map Sidebar (Right) */
+>>>>>>> apartments
 .map {
     width: clamp(280px, 25vw, 420px);
     position: fixed;
@@ -397,7 +476,11 @@
     object-position: center;
 }
 
+<<<<<<< HEAD
 /* Popup - Responsive */
+=======
+/* Popup */
+>>>>>>> apartments
 .popup {
     position: fixed;
     top: 50%;

@@ -1,6 +1,34 @@
 from django.db import models
 from posttype.models import PostType
 
+"""
+Module: features.models
+Date: 2025-11-7
+Programmer: Arthur Lazaryan & Arrshan Saravanabavanandam
+
+
+Description:
+    Defines the Feature model, which represents an attribute, amenity,
+    or characteristic that can be attached to different types of posts
+    such as ApartmentPost or RoommatePost.
+
+    Each Feature is linked to a PostType object, allowing features to be
+    categorized according to which type of post they apply to. This avoids
+    hard-coding repeated feature names across different parts of the project.
+
+Design Pattern:
+    Bridge Pattern:
+        This model uses a ForeignKey to the PostType model to bridge the
+        "feature" concept with different post categories (e.g., Apartment,
+        Roommate, Sublease). This allows flexibility and avoids deep inheritance
+        trees or duplicate data.
+
+Important Data Structures:
+    - CharField: stores the feature name.
+    - ForeignKey(PostType): links the feature to a specific post type.
+    - URLField: stores the icon path for frontend display.
+"""
+
 # Create your models here.
 
 # will be the feature class which will be used for many of the portions of the application

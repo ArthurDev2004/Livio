@@ -5,6 +5,27 @@ from .models import Nationality
 from .serializers import NationalitySerializer
 from rest_framework import status
 
+"""
+Module: nationalities.views
+Date: 2025-10-17
+Programmer: Arthur Lazaryan & Arrshan Saravanabavanandam
+
+Description:
+    This module defines the API endpoints for retrieving and creating
+    Nationality objects using Django REST Framework. It supports both
+    single-object creation and bulk creation to help populate the database
+    quickly during development.
+
+Design Patterns:
+    - Decorator Pattern:
+        The @api_view decorator is applied to plain functions to add REST
+        framework capabilities and enforce allowed HTTP methods.
+
+    - Adapter Pattern:
+        NationalitySerializer adapts ORM model instances into JSON and
+        converts JSON data back to model instances for POST requests.
+"""
+
 # Create your views here.
 @api_view(['GET'])
 def allNationalities(request):
