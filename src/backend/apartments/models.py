@@ -2,8 +2,40 @@ from django.db import models
 from posts.models import Post
 from features.models import Feature
 
+"""
+Module: apartments.models
+Date: November 1, 2025
+Programmer: Arrshan Saravanabavanandam
+
+Description:
+    Contains the ApartmentPost model, which represents an apartment listing.
+    This class extends the abstract Post base class and adds fields specific
+    to rental properties (rent, bedrooms, address, square footage, etc.).
+"""
+
+
+
 class ApartmentPost(Post):
-    
+
+    """
+    Class: ApartmentPost
+    Date: 2025-11-14
+    Programmer: Arrshan Saravanabavanandam
+
+    Description:
+        Extends the abstract Post class to represent an apartment listing in the Livio application.
+        Includes rental information such as rent, bedrooms, bathrooms, square footage, and availability.
+
+    Important Fields:
+        address (str): Street address of the apartment.
+        city (str): City in which the apartment is located.
+        monthly_rent (Decimal): Monthly cost of rent.
+        features (ManyToMany[Feature]): Amenity tags such as A/C, Parking, Laundry.
+
+    Algorithms / Notes:
+        No special algorithms used here — relies on Django ORM to map the model to the database.
+    """
+
     address = models.CharField(max_length=300)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=40)
