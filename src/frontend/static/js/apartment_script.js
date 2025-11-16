@@ -1,4 +1,4 @@
-// Edited by Andrew Ponce on 6/6/2024
+// Edited by Andrew Ponce on 10/12/2025
 
 // Image Gallery Navigation
 document.querySelectorAll('.image-gallery').forEach(gallery => {
@@ -6,7 +6,7 @@ document.querySelectorAll('.image-gallery').forEach(gallery => {
      * Handles image gallery navigation.
      * - Clicking on the gallery cycles through images.
      * - Clicking on dots navigates directly to the corresponding image.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     const images = gallery.querySelectorAll('.apartment-image');
     const dots = gallery.querySelectorAll('.dot');
@@ -16,7 +16,7 @@ document.querySelectorAll('.image-gallery').forEach(gallery => {
         /**
          * Cycles to the next image when the gallery is clicked.
          * Skips if a dot is clicked.
-         * Edited by Andrew Ponce on 6/6/2024
+         * Edited by Andrew Ponce on 10/12/2025
          */
         if (e.target.classList.contains('dot')) return;
         e.stopPropagation();
@@ -33,7 +33,7 @@ document.querySelectorAll('.image-gallery').forEach(gallery => {
     dots.forEach((dot, index) => {
         /**
          * Navigates directly to the selected image when a dot is clicked.
-         * Edited by Andrew Ponce on 6/6/2024
+         * Edited by Andrew Ponce on 10/12/2025
          */
         dot.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -54,7 +54,7 @@ document.querySelectorAll('.card').forEach(card => {
     /**
      * Toggles the "flipped" class on a card when clicked.
      * Skips flipping if the click is on an image, username, user picture, or button.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     card.addEventListener('click', (e) => {
         if (e.target.closest('.image-gallery') || 
@@ -71,7 +71,7 @@ document.querySelectorAll('.card').forEach(card => {
 document.querySelectorAll('.filter-header').forEach(header => {
     /**
      * Toggles the "collapsed" class on a filter section when its header is clicked.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     header.addEventListener('click', () => {
         const section = header.parentElement;
@@ -88,7 +88,7 @@ const popupCloseBtn = popup.querySelector('.popup-close');
 document.querySelectorAll('.username, .user-pic').forEach(el => {
     /**
      * Opens the user popup with details when a username or user picture is clicked.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     el.addEventListener('click', e => {
         e.stopPropagation();
@@ -115,7 +115,7 @@ document.querySelectorAll('.username, .user-pic').forEach(el => {
 popupCloseBtn.addEventListener('click', () => {
     /**
      * Closes the user popup when the close button is clicked.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     popup.classList.remove('active');
 });
@@ -123,7 +123,7 @@ popupCloseBtn.addEventListener('click', () => {
 popup.addEventListener('click', e => {
     /**
      * Closes the user popup when clicking outside the popup content.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     if (e.target === popup) {
         popup.classList.remove('active');
@@ -135,7 +135,7 @@ document.querySelectorAll('.choose-button').forEach(button => {
     /**
      * Handles the "Choose" button click event.
      * Displays an alert and navigates to the listing details page.
-     * Edited by Andrew Ponce on 6/6/2024
+     * Edited by Andrew Ponce on 10/12/2025
      */
     button.addEventListener('click', e => {
         e.stopPropagation();
